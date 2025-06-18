@@ -1,0 +1,11 @@
+{
+  "buildCommand": "cd apps/react-app && npm run build",
+  "outputDirectory": "apps/react-app/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+  

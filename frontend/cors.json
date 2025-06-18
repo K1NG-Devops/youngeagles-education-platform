@@ -1,0 +1,18 @@
+[
+    {
+        "origin": [
+            "https://youngeagles.org.za",
+            "https://www.youngeagles.org.za"
+        ],
+        "method": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE"
+        ],
+        "responseHeader": [
+            "Content-Type"
+        ],
+        "maxAgeSeconds": 3600
+    }
+]

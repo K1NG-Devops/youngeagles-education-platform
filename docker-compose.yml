@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # Database for parents and students (skydek_DB)
+  skydek-db:
+    image: mysql:8.0
+    container_name: skydek_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: young_eagles_root
+      MYSQL_DATABASE: skydek_DB
+      MYSQL_USER: skydek_user
+      MYSQL_PASSWORD: skydek_password
+    ports:
+      - "3308:3306"
+    volumes:
+      - skydek-data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - young-eagles-network
+
+ 
+  # phpMyAdmin for database management
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: young_eagles_phpmyadmin
+    restart: always
+    environment:
+      PMA_HOSTS: skydek-db,railway-db
+      PMA_USER: root
+      PMA_PASSWORD: young_eagles_root
+    ports:
+      - "8080:80"
+    networks:
+      - young-eagles-network
+    depends_on:
+      - skydek-db
+
+volumes:
+  skydek-data:
+
+networks:
+  young-eagles-network:
+    driver: bridge

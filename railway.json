@@ -1,0 +1,20 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "cd apps/youngeagles-api-server && npm install",
+    "watchPatterns": [
+      "apps/**",
+      "packages/**",
+      "turbo.json",
+      "package.json",
+      "package-lock.json"
+    ]
+  },
+  "deploy": {
+    "startCommand": "cd apps/youngeagles-api-server && npm start",
+    "healthcheckPath": "/",
+    "healthcheckTimeout": 100
+  }
+}
+

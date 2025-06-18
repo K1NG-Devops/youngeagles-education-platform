@@ -1,0 +1,46 @@
+# OS-specific
+.DS_Store
+
+# Log files
+*.log
+logs/
+
+# Dependency directories
+node_modules/
+bower_components/
+
+# Editor/project settings
+*.sublime*
+.vscode/
+.idea/
+
+# Design/source files (if you're not tracking these)
+*.psd
+*.sketch
+*.tiff
+*.tif
+
+# Backups
+**/*.backup.*
+**/*.back.*
+
+# Environment & config files
+.env
+.env.*.local
+
+# Output / build directories
+build/
+dist/
+
+# Vercel
+.vercel/
+
+# Misc data
+*.csv
+*.tsv
+*.xml
+
+# Ignore plain text if you don’t need them
+# (But be careful — sometimes README.txt or LICENSE.txt can be important)
+# Remove this if you keep legit .txt files in the repo
+*.txt

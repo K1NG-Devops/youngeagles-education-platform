@@ -1,0 +1,553 @@
+/* Mobile-First Responsive Enhancements for Young Eagles App */
+
+/* Global Mobile Utilities */
+.mobile-container {
+  @apply px-4 py-2 max-w-screen-xl mx-auto;
+}
+
+/* Homework List Mobile Optimizations */
+.homework-card-mobile {
+  @apply bg-white rounded-xl shadow-md border border-gray-100 
+         active:shadow-lg transition-all duration-200 
+         transform active:scale-[0.98];
+}
+
+.homework-header-mobile {
+  @apply bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-t-xl;
+}
+
+.homework-tabs-mobile {
+  @apply flex border-b bg-gray-50;
+}
+
+.homework-tab-button {
+  @apply flex-1 px-3 py-2 sm:px-4 sm:py-3 text-xs sm:text-sm font-medium 
+         flex items-center justify-center gap-1 sm:gap-2 
+         transition-colors duration-200 touch-target;
+}
+
+.homework-tab-active {
+  @apply bg-white text-blue-600 border-b-2 border-blue-600;
+}
+
+.homework-tab-inactive {
+  @apply text-gray-600 hover:text-gray-800 active:bg-gray-100;
+}
+
+.homework-content-mobile {
+  @apply p-4 space-y-4;
+}
+
+.homework-status-badge {
+  @apply px-2 py-1 rounded text-xs font-bold uppercase tracking-wide;
+}
+
+.homework-due-date-mobile {
+  @apply text-xs sm:text-sm text-gray-600 font-medium;
+}
+
+/* Teacher Submissions View Mobile */
+.submissions-stats-grid {
+  @apply grid grid-cols-1 sm:grid-cols-3 gap-4;
+}
+
+.submission-stat-card {
+  @apply p-4 text-center bg-white rounded-lg shadow-md border;
+}
+
+.student-submission-item {
+  @apply p-4 rounded-lg border transition-all duration-200 
+         active:shadow-md;
+}
+
+.student-submitted {
+  @apply border-green-200 bg-green-50;
+}
+
+.student-pending {
+  @apply border-red-200 bg-red-50;
+}
+
+.submission-modal-mobile {
+  @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50;
+}
+
+.submission-modal-content {
+  @apply bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto;
+}
+
+/* Progress Overview Mobile */
+.progress-overview-mobile {
+  @apply bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6;
+}
+
+.progress-bar-mobile {
+  @apply w-full bg-gray-200 rounded-full h-3 sm:h-4 mb-4;
+}
+
+.progress-fill {
+  @apply bg-gradient-to-r from-green-400 to-green-600 h-3 sm:h-4 rounded-full 
+         transition-all duration-500;
+}
+
+/* Interactive Activity Mobile */
+.activity-container-mobile {
+  @apply w-full max-w-4xl mx-auto p-4;
+}
+
+.activity-header-mobile {
+  @apply bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-t-lg;
+}
+
+.activity-content-mobile {
+  @apply p-6 space-y-6;
+}
+
+.activity-commands-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+}
+
+.activity-command-item {
+  @apply p-4 rounded-lg border-2 cursor-move transition-all 
+         hover:shadow-md hover:scale-102 
+         active:shadow-lg active:scale-105 active:rotate-1;
+}
+
+.activity-sequence-slot {
+  @apply p-3 min-h-[60px] border-2 border-dashed rounded-lg flex items-center 
+         transition-all duration-200;
+}
+
+.activity-sequence-empty {
+  @apply border-gray-300 bg-gray-50;
+}
+
+.activity-sequence-filled {
+  @apply border-purple-500 bg-purple-50;
+}
+
+.activity-sequence-active {
+  @apply ring-2 ring-yellow-500 bg-yellow-50 animate-pulse;
+}
+
+/* Robotics Activity Mobile */
+.robot-grid-mobile {
+  @apply grid grid-cols-5 gap-1 w-fit mx-auto mb-4 p-4 bg-gray-800 rounded-lg;
+}
+
+.robot-cell {
+  @apply w-12 h-12 border flex items-center justify-center text-xl font-bold relative;
+}
+
+.robot-cell-wall {
+  @apply bg-gray-900 border-gray-700;
+}
+
+.robot-cell-robot {
+  @apply bg-blue-400 border-blue-600 animate-pulse;
+}
+
+.robot-cell-goal {
+  @apply bg-yellow-400 border-yellow-600;
+}
+
+.robot-cell-start {
+  @apply bg-green-400 border-green-600;
+}
+
+.robot-cell-path {
+  @apply bg-blue-100 border-blue-300;
+}
+
+.robot-cell-empty {
+  @apply bg-white border-gray-400;
+}
+
+/* Enhanced Touch Interactions */
+@media (hover: none) and (pointer: coarse) {
+  .homework-card-mobile:active {
+    @apply scale-95 shadow-xl;
+  }
+  
+  .mobile-button:active {
+    @apply scale-95;
+  }
+  
+  .activity-command-item:active {
+    @apply scale-110 rotate-2;
+  }
+  
+  .touch-target {
+    @apply min-h-[48px] min-w-[48px];
+  }
+}
+
+/* Landscape Mobile Optimizations */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .homework-card-mobile {
+    @apply mb-2;
+  }
+  
+  .homework-content-mobile {
+    @apply p-2;
+  }
+  
+  .progress-overview-mobile {
+    @apply p-3 mb-3;
+  }
+  
+  .mobile-container {
+    @apply py-2;
+  }
+}
+
+/* Large Screen Mobile (Tablets) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .homework-card-mobile {
+    @apply max-w-none;
+  }
+  
+  .submissions-stats-grid {
+    @apply grid-cols-3;
+  }
+  
+  .activity-commands-grid {
+    @apply grid-cols-2;
+  }
+}
+
+/* Small Screen Optimizations */
+@media screen and (max-width: 375px) {
+  .homework-tabs-mobile {
+    @apply text-xs;
+  }
+  
+  .homework-status-badge {
+    @apply text-[10px] px-1;
+  }
+  
+  .robot-cell {
+    @apply w-10 h-10 text-base;
+  }
+  
+  .activity-command-item {
+    @apply p-2;
+  }
+}
+
+.mobile-card {
+  @apply bg-white rounded-lg shadow-md p-4 mb-4 border border-gray-100;
+}
+
+.mobile-button {
+  @apply w-full py-3 px-4 bg-blue-500 text-white rounded-lg font-semibold text-center 
+         active:bg-blue-600 transition-colors duration-200 
+         disabled:bg-gray-300 disabled:cursor-not-allowed;
+}
+
+.mobile-input {
+  @apply w-full p-3 border border-gray-300 rounded-lg text-base 
+         focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+         transition-all duration-200;
+}
+
+/* Touch-Friendly Interactive Elements */
+.touch-target {
+  @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
+}
+
+.swipe-card {
+  @apply transform transition-transform duration-200 active:scale-95;
+}
+
+/* Homework Activity Mobile Styles */
+.activity-builder-mobile {
+  @apply space-y-4;
+}
+
+.activity-type-grid {
+  @apply grid grid-cols-2 gap-3;
+}
+
+.activity-type-card {
+  @apply p-4 rounded-xl border-2 border-gray-200 
+         active:border-blue-500 active:bg-blue-50 
+         transition-all duration-200 text-center;
+}
+
+.template-carousel {
+  @apply flex overflow-x-auto space-x-4 pb-4 snap-x snap-mandatory;
+}
+
+.template-card {
+  @apply min-w-[280px] bg-gradient-to-br from-blue-50 to-purple-50 
+         rounded-xl p-4 snap-start shadow-md;
+}
+
+/* Progress Tracking Mobile */
+.progress-stat-grid {
+  @apply grid grid-cols-2 gap-3;
+}
+
+.progress-stat-card {
+  @apply p-3 rounded-lg text-center transform 
+         active:scale-95 transition-transform duration-150;
+}
+
+/* Notification Mobile Styles */
+.notification-mobile {
+  @apply fixed top-0 left-0 right-0 z-50 
+         bg-white shadow-lg transform transition-transform duration-300;
+}
+
+.notification-list-mobile {
+  @apply space-y-2 max-h-[70vh] overflow-y-auto;
+}
+
+.notification-item-mobile {
+  @apply p-4 border-l-4 active:bg-gray-50 
+         transition-colors duration-150;
+}
+
+/* Parent Dashboard Mobile */
+.parent-dashboard-mobile {
+  @apply space-y-4 pb-20; /* Extra padding for mobile nav */
+}
+
+.homework-card-mobile {
+  @apply bg-white rounded-xl p-4 shadow-md border border-gray-100 
+         active:shadow-lg transition-shadow duration-200;
+}
+
+.homework-status-badge {
+  @apply px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide;
+}
+
+.homework-due-date {
+  @apply text-sm text-gray-600 font-medium;
+}
+
+/* Bottom Navigation for Mobile */
+.mobile-bottom-nav {
+  @apply fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 
+         px-4 py-2 flex justify-around items-center z-40;
+}
+
+.mobile-nav-item {
+  @apply flex flex-col items-center space-y-1 p-2 rounded-lg 
+         active:bg-gray-100 transition-colors duration-150;
+}
+
+.mobile-nav-icon {
+  @apply text-xl;
+}
+
+.mobile-nav-label {
+  @apply text-xs font-medium;
+}
+
+/* Loading States */
+.mobile-skeleton {
+  @apply animate-pulse bg-gray-200 rounded;
+}
+
+.mobile-spinner {
+  @apply animate-spin rounded-full border-2 border-gray-300 border-t-blue-600;
+}
+
+/* Floating Action Button */
+.fab {
+  @apply fixed bottom-20 right-4 w-14 h-14 bg-blue-500 text-white 
+         rounded-full shadow-lg flex items-center justify-center 
+         active:bg-blue-600 transition-colors duration-200 z-30;
+}
+
+/* Pull to Refresh */
+.pull-to-refresh {
+  @apply relative overflow-hidden;
+}
+
+.refresh-indicator {
+  @apply absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full 
+         w-8 h-8 text-blue-500 transition-transform duration-300;
+}
+
+/* Swipe Actions */
+.swipe-action-container {
+  @apply relative overflow-hidden;
+}
+
+.swipe-action-background {
+  @apply absolute inset-y-0 right-0 flex items-center justify-center 
+         bg-red-500 text-white px-6 transform translate-x-full 
+         transition-transform duration-200;
+}
+
+/* Responsive Typography */
+.mobile-heading {
+  @apply text-2xl font-bold text-gray-900 leading-tight;
+}
+
+.mobile-subheading {
+  @apply text-lg font-semibold text-gray-700;
+}
+
+.mobile-body {
+  @apply text-base text-gray-600 leading-relaxed;
+}
+
+.mobile-caption {
+  @apply text-sm text-gray-500;
+}
+
+/* Form Enhancements */
+.mobile-form-group {
+  @apply space-y-2 mb-4;
+}
+
+.mobile-form-label {
+  @apply block text-sm font-medium text-gray-700;
+}
+
+.mobile-form-error {
+  @apply text-sm text-red-600 mt-1;
+}
+
+.mobile-form-success {
+  @apply text-sm text-green-600 mt-1;
+}
+
+/* Animation Classes */
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+.slide-down {
+  animation: slideDown 0.3s ease-out;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.bounce-in {
+  animation: bounceIn 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .mobile-card {
+    @apply bg-gray-800 border-gray-700;
+  }
+  
+  .mobile-input {
+    @apply bg-gray-800 border-gray-600 text-white;
+  }
+  
+  .mobile-heading,
+  .mobile-subheading {
+    @apply text-white;
+  }
+  
+  .mobile-body {
+    @apply text-gray-300;
+  }
+  
+  .mobile-caption {
+    @apply text-gray-400;
+  }
+}
+
+/* Accessibility Enhancements */
+.focus-visible {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+}
+
+.reduced-motion {
+  @apply transition-none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .mobile-button {
+    @apply border-2 border-black;
+  }
+  
+  .mobile-input {
+    @apply border-2 border-black;
+  }
+}
+
+/* Large Text Support */
+@media (min-resolution: 192dpi) {
+  .mobile-heading {
+    @apply text-3xl;
+  }
+  
+  .mobile-subheading {
+    @apply text-xl;
+  }
+  
+  .mobile-body {
+    @apply text-lg;
+  }
+}
+

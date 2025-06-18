@@ -1,0 +1,85 @@
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
+
+const Navbar = () => {
+  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navItems = [
+    { name: 'Home', to: '/' },
+    { name: 'About', to: '/about' },
+    { name: 'Programs', to: '/programs' },
+    { name: 'Admission', to: '/admission' },
+    { name: 'Contact', to: '/contact' },
+  ];
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isOpen]);
+
+  return (
+    <nav className="navbar fixed top-0 left-0 w-full z-50 bg-base-100 text-base-content shadow-md">
+      <div className="w-full max-w-7xl mx-auto px-4 flex items-center justify-between py-3">
+        {/* Logo */}
+        <Link to="/" className="text-2xl font-bold text-blue-700 dark:text-blue-300 flex items-center gap-2">
+          Young Eagles
+        </Link>
+
+        {/* Toggle button (mobile only) */}
+        <button
+          className="md:hidden"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
+        >
+          {isOpen ? <XIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+        </button>
+
+        {/* Desktop Nav */}
+        <ul className="hidden md:flex gap-6">
+          {navItems.map(({ name, to }) => (
+            <li key={to}>
+              <Link
+                to={to}
+                className={`hover:text-blue-600 transition ${
+                  location.pathname === to ? 'font-semibold underline text-blue-700 dark:text-blue-300' : ''
+                }`}
+              >
+                {name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Mobile Dropdown */}
+      <div
+        className={`md:hidden absolute top-full left-0 w-full bg-base-100 transition-all duration-300 ease-in-out overflow-hidden shadow-md ${
+          isOpen ? 'max-h-screen py-4' : 'max-h-0'
+        }`}
+      >
+        <ul className="flex flex-col items-center gap-4">
+          {navItems.map(({ name, to }) => (
+            <li key={to}>
+              <Link
+                to={to}
+                onClick={() => setIsOpen(false)}
+                className={`hover:text-blue-600 transition ${
+                  location.pathname === to ? 'font-semibold underline text-blue-700 dark:text-blue-300' : ''
+                }`}
+              >
+                {name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

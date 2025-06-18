@@ -1,0 +1,89 @@
+.young {
+  display: block;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.309), rgba(0, 0, 0, 0.854)),
+      url("https://i.pinimg.com/736x/9b/3e/d9/9b3ed972fb3d213457b7aae436367906.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgb(236, 36, 103);
+  text-align: center;
+  text-shadow: 2px 2px 4px #000000;
+  text-transform: uppercase;
+  padding-top: 2rem;
+  margin-top: 8rem;
+}
+
+.text {
+  font-size: 2.5rem;
+  font-weight: bolder;
+  text-align: center;
+  margin-top: 8rem;
+}
+
+.young1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: rgb(2, 32, 121);
+  text-align: center;
+  text-shadow: 2px 2px 4px #000000;
+  margin-top: 2rem;
+  background-color: transparent;
+}
+
+.text2 {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  color: rgb(10, 56, 194);
+  text-align: center;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+.young button {
+  width: 80%;
+  max-width: 300px;
+  padding: 1rem;
+  color: white;
+  margin: 0 auto;
+  display: block;
+}
+
+.test {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45vh;
+}
+
+/* 🎯 Mobile Responsive Breakpoint */
+@media (max-width: 600px) {
+  .young {
+      font-size: 1.5rem;
+      margin-top: 4rem;
+  }
+
+  .text {
+      font-size: 1.75rem;
+  }
+
+  .young1 {
+      font-size: 1.25rem;
+  }
+
+  .text2 {
+      font-size: 1.2rem;
+  }
+
+  .young button {
+      width: 90%;
+      font-size: 1rem;
+  }
+
+  .test {
+      height: 40vh;
+  }
+}
+

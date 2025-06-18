@@ -1,0 +1,46 @@
+<svg width="390" height="844" viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="bgGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6"/>
+      <stop offset="100%" style="stop-color:#8B5CF6"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="390" height="844" fill="url(#bgGrad1)"/>
+  
+  <!-- Phone Status Bar -->
+  <rect width="390" height="40" fill="rgba(0,0,0,0.1)"/>
+  <text x="20" y="28" font-family="Arial" font-size="14" font-weight="bold" fill="white">9:41</text>
+  <text x="350" y="28" font-family="Arial" font-size="14" fill="white">100%</text>
+  
+  <!-- App Logo -->
+  <circle cx="195" cy="150" r="40" fill="white" opacity="0.9"/>
+  <text x="195" y="157" text-anchor="middle" font-family="Arial" font-size="24" font-weight="bold" fill="#3B82F6">🦅</text>
+  
+  <!-- App Title -->
+  <text x="195" y="220" text-anchor="middle" font-family="Arial" font-size="28" font-weight="bold" fill="white">Young Eagles</text>
+  <text x="195" y="250" text-anchor="middle" font-family="Arial" font-size="16" fill="rgba(255,255,255,0.8)">Homework Helper</text>
+  
+  <!-- Login Form -->
+  <rect x="40" y="320" width="310" height="400" rx="20" fill="white" opacity="0.95"/>
+  
+  <!-- Email Field -->
+  <rect x="60" y="360" width="270" height="45" rx="8" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <text x="75" y="388" font-family="Arial" font-size="14" fill="#6B7280">Enter your email</text>
+  
+  <!-- Password Field -->
+  <rect x="60" y="420" width="270" height="45" rx="8" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <text x="75" y="448" font-family="Arial" font-size="14" fill="#6B7280">••••••••</text>
+  
+  <!-- Login Button -->
+  <rect x="60" y="490" width="270" height="45" rx="8" fill="#3B82F6"/>
+  <text x="195" y="518" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="white">Sign In</text>
+  
+  <!-- Additional Options -->
+  <text x="195" y="570" text-anchor="middle" font-family="Arial" font-size="14" fill="#6B7280">Don't have an account?</text>
+  <text x="195" y="590" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#3B82F6">Sign up here</text>
+  
+  <!-- Footer -->
+  <text x="195" y="800" text-anchor="middle" font-family="Arial" font-size="12" fill="rgba(255,255,255,0.6)">Interactive learning for students</text>
+</svg>

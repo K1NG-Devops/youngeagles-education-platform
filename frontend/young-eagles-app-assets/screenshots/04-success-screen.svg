@@ -1,0 +1,50 @@
+<svg width="390" height="844" viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="successBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="390" height="844" fill="url(#successBg)"/>
+  
+  <!-- Status Bar -->
+  <rect width="390" height="40" fill="rgba(0,0,0,0.1)"/>
+  <text x="20" y="28" font-family="Arial" font-size="14" font-weight="bold" fill="white">9:41</text>
+  <text x="350" y="28" font-family="Arial" font-size="14" fill="white">100%</text>
+  
+  <!-- Success Animation Area -->
+  <circle cx="195" cy="250" r="80" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="4"/>
+  <text x="195" y="270" text-anchor="middle" font-family="Arial" font-size="48" fill="white">✓</text>
+  
+  <!-- Celebration -->
+  <text x="195" y="370" text-anchor="middle" font-family="Arial" font-size="32" font-weight="bold" fill="white">🎉 Excellent! 🎉</text>
+  <text x="195" y="410" text-anchor="middle" font-family="Arial" font-size="18" fill="rgba(255,255,255,0.9)">All colors matched correctly!</text>
+  
+  <!-- Stats Card -->
+  <rect x="40" y="450" width="310" height="120" rx="16" fill="rgba(255,255,255,0.95)"/>
+  <text x="195" y="480" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#374151">Activity Complete</text>
+  
+  <text x="80" y="510" font-family="Arial" font-size="14" fill="#6B7280">Score:</text>
+  <text x="310" y="510" text-anchor="end" font-family="Arial" font-size="14" font-weight="bold" fill="#10B981">100%</text>
+  
+  <text x="80" y="530" font-family="Arial" font-size="14" fill="#6B7280">Time:</text>
+  <text x="310" y="530" text-anchor="end" font-family="Arial" font-size="14" font-weight="bold" fill="#10B981">1:23</text>
+  
+  <text x="80" y="550" font-family="Arial" font-size="14" fill="#6B7280">Attempts:</text>
+  <text x="310" y="550" text-anchor="end" font-family="Arial" font-size="14" font-weight="bold" fill="#10B981">1</text>
+  
+  <!-- Buttons -->
+  <rect x="60" y="600" width="270" height="50" rx="12" fill="white"/>
+  <text x="195" y="630" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#10B981">Submit Homework</text>
+  
+  <rect x="60" y="670" width="125" height="40" rx="8" fill="rgba(255,255,255,0.2)" stroke="white"/>
+  <text x="122" y="694" text-anchor="middle" font-family="Arial" font-size="14" fill="white">Try Again</text>
+  
+  <rect x="205" y="670" width="125" height="40" rx="8" fill="rgba(255,255,255,0.2)" stroke="white"/>
+  <text x="267" y="694" text-anchor="middle" font-family="Arial" font-size="14" fill="white">Next Activity</text>
+  
+  <!-- Footer -->
+  <text x="195" y="780" text-anchor="middle" font-family="Arial" font-size="14" fill="rgba(255,255,255,0.8)">Great job! Keep learning! 🌟</text>
+</svg>
