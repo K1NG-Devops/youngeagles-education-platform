@@ -21,6 +21,8 @@ import MessagingCenter from './MessagingCenter'
 import PrivateRoutePWA from './PWA/PrivateRoutePWA'
 import AdminLogin from './AdminLogin'
 import OfflineIndicator from './OfflineIndicator'
+import Registration2026 from '../pages/Registration2026'
+import ContactUs from '../pages/ContactUs'
 
 const PWALayout = ({ isOnline = true }) => {
   const navigate = useNavigate()
@@ -232,6 +234,8 @@ const PWALayout = ({ isOnline = true }) => {
             <Route path="/admin-dashboard" element={<PWAAdminDashboard />} />
           </Route>
 
+<Route path="/register-2026" element={<Registration2026 />} />
+          <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/*" element={<Navigate to="/login" replace />} />
         </Routes>
       </main>

@@ -16,6 +16,8 @@ import PWAInstallPrompt from './components/PWAInstallPrompt'
 import PWADebugIndicator from './components/PWADebugIndicator'
 import NotificationManager from './components/NotificationManager'
 import AutoLogout from './components/AutoLogout'
+import Registration2026 from './pages/Registration2026'
+import ContactUs from './pages/ContactUs'
 
 // Hooks
 import usePWA from './hooks/usePWA'
@@ -95,6 +97,8 @@ function App() {
             <Route path="/admin-login" element={<AdminLogin />} />
             <Route path="/password-reset" element={<PasswordReset />} />
             <Route path="/auth-test" element={<AuthTest />} />
+            <Route path="/register-2026" element={<Registration2026 />} />
+            <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/*" element={<Navigate to="/login" replace />} />
           </Routes>
         )}

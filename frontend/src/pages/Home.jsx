@@ -89,14 +89,22 @@ const Home = () => {
           <p className="text-center text-gray-700 mb-6 max-w-3xl mx-auto">
             Young Eagles introduces coding, robotics, and computer literacy to kids using fun tools like <strong>ScratchJr</strong>, <strong>Blockly</strong>, and hands-on STEM kits.
           </p>
-          <div className="flex justify-center">
+          <div className="flex justify-center gap-4">
             <Link
-              to="/dashboard"
-              className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-500 transform hover:scale-105 transition duration-300 ease-in-out"
+              to="/register-2026"
+              className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-500 transform hover:scale-105 transition duration-300 ease-in-out font-semibold"
               data-aos="fade-left"
               data-aos-delay="200"
             >
-              Explore Student Dashboard
+              📚 Register for 2026
+            </Link>
+            <Link
+              to="/contact"
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transform hover:scale-105 transition duration-300 ease-in-out"
+              data-aos="fade-right"
+              data-aos-delay="250"
+            >
+              💬 Contact Us
             </Link>
           </div>
         </section>
@@ -170,26 +178,35 @@ const Home = () => {
 
 
         {/* Final CTA */}
-        <div className="text-center" data-aos="zoom-in">
-          <Link
-            to="/login"
-            className="inline-block px-8 py-3 bg-pink-600 text-white text-lg font-semibold rounded-full shadow-md hover:bg-pink-500 transition mb-4 md:mb-0 transform hover:scale-115 transition duration-300 ease-in-out"
-          >
-            Parent Login
-          </Link>
-          <Link
-            to="/popupload"
-            className="ml-2 inline-block px-8 py-3 bg-purple-600 text-white text-lg font-semibold rounded-full shadow-md hover:bg-purple-500 transition transform hover:scale-115 transition duration-300 ease-in-out"
-          >
-            Upload POP
-          </Link>
-          <Link
-            to="/download"
-            className="ml-2 inline-flex items-center justify-center px-8 py-3 bg-green-600 text-white text-lg font-semibold rounded-full shadow-md hover:bg-green-500 transition transform hover:scale-105 duration-300 ease-in-out mt-4 md:mt-0"
-          >
-            <FaDownload className="mr-2" />
-            Download App
-          </Link>
+        <div className="text-center bg-gradient-to-r from-purple-600 to-pink-600 p-8 rounded-xl shadow-lg" data-aos="zoom-in">
+          <h3 className="text-2xl font-bold text-white mb-4">Ready to Join Our Family?</h3>
+          <p className="text-purple-100 mb-6 max-w-2xl mx-auto">
+            Give your child the best start in life. Secure your spot for 2026 today!
+          </p>
+          <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
+            <Link
+              to="/register-2026"
+              className="inline-block px-8 py-4 bg-white text-purple-600 text-lg font-bold rounded-full shadow-md hover:bg-gray-50 transition transform hover:scale-105 duration-300 ease-in-out"
+            >
+              🎯 Register for 2026
+            </Link>
+            <Link
+              to="/contact"
+              className="inline-block px-8 py-4 bg-yellow-400 text-gray-800 text-lg font-bold rounded-full shadow-md hover:bg-yellow-300 transition transform hover:scale-105 duration-300 ease-in-out"
+            >
+              📞 Schedule a Visit
+            </Link>
+            <Link
+              to="/download"
+              className="inline-flex items-center justify-center px-8 py-4 bg-green-500 text-white text-lg font-semibold rounded-full shadow-md hover:bg-green-400 transition transform hover:scale-105 duration-300 ease-in-out"
+            >
+              <FaDownload className="mr-2" />
+              📱 Get Our App
+            </Link>
+          </div>
+          <p className="text-purple-200 text-sm mt-4">
+            💎 Current families can access the parent portal through our mobile app
+          </p>
         </div>
       </div>
     </>
