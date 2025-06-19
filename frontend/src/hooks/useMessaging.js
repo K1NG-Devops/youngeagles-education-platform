@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { apiRequest } from '../config/api';
+import { apiRequest, API_BASE_URL } from '../config/api';
 import { toast } from 'react-toastify';
 
 const useMessaging = () => {
@@ -15,7 +15,7 @@ const useMessaging = () => {
   const fetchMessages = useCallback(async (page = 1, type = 'all') => {
     setLoading(true);
     try {
-      const response = await apiRequest(`/api/messages?page=${page}&type=${type}`);
+      const response = await apiRequest(`${API_BASE_URL}/api/messages?page=${page}&type=${type}`);
       if (response.success) {
         setMessages(response.messages);
       }
@@ -31,7 +31,7 @@ const useMessaging = () => {
   const sendMessage = useCallback(async (messageData) => {
     setLoading(true);
     try {
-      const response = await apiRequest('/api/messages/send', {
+      const response = await apiRequest(`${API_BASE_URL}/api/messages/send`, {
         method: 'POST',
         body: JSON.stringify(messageData)
       });
@@ -54,7 +54,7 @@ const useMessaging = () => {
   const getConversation = useCallback(async (otherUserId, otherUserType) => {
     setLoading(true);
     try {
-      const response = await apiRequest(`/api/messages/conversation/${otherUserId}/${otherUserType}`);
+      const response = await apiRequest(`${API_BASE_URL}/api/messages/conversation/${otherUserId}/${otherUserType}`);
       if (response.success) {
         return response.messages;
       }
@@ -70,7 +70,7 @@ const useMessaging = () => {
   // Mark message as read
   const markAsRead = useCallback(async (messageId) => {
     try {
-      await apiRequest(`/api/messages/${messageId}/read`, {
+      await apiRequest(`${API_BASE_URL}/api/messages/${messageId}/read`, {
         method: 'PUT'
       });
       fetchUnreadCount(); // Update unread count
@@ -82,19 +82,28 @@ const useMessaging = () => {
   // Fetch unread count
   const fetchUnreadCount = useCallback(async () => {
     try {
-      const response = await apiRequest('/api/messages/unread-count');
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        // User not authenticated, set count to 0 and return
+        setUnreadCount(0);
+        return;
+      }
+      
+      const response = await apiRequest(`${API_BASE_URL}/api/messages/unread-count`);
       if (response.success) {
         setUnreadCount(response.unread_count);
       }
     } catch (err) {
-      console.error('Failed to fetch unread count:', err);
+      // Fail silently for unread count - this is not critical functionality
+      console.warn('Failed to fetch unread count:', err.message);
+      setUnreadCount(0);
     }
   }, []);
 
   // Fetch contacts
   const fetchContacts = useCallback(async () => {
     try {
-      const response = await apiRequest('/api/messages/contacts');
+      const response = await apiRequest(`${API_BASE_URL}/api/messages/contacts`);
       if (response.success) {
         setContacts(response.contacts);
       }
@@ -107,7 +116,7 @@ const useMessaging = () => {
   // Fetch notifications
   const fetchNotifications = useCallback(async (page = 1, unreadOnly = false) => {
     try {
-      const response = await apiRequest(`/api/messages/notifications?page=${page}&unread_only=${unreadOnly}`);
+      const response = await apiRequest(`${API_BASE_URL}/api/messages/notifications?page=${page}&unread_only=${unreadOnly}`);
       if (response.success) {
         setNotifications(response.notifications);
       }
@@ -120,7 +129,7 @@ const useMessaging = () => {
   // Mark notification as read
   const markNotificationAsRead = useCallback(async (notificationId) => {
     try {
-      await apiRequest(`/api/messages/notifications/${notificationId}/read`, {
+      await apiRequest(`${API_BASE_URL}/api/messages/notifications/${notificationId}/read`, {
         method: 'PUT'
       });
       fetchNotifications(); // Refresh notifications
@@ -129,10 +138,14 @@ const useMessaging = () => {
     }
   }, [fetchNotifications]);
 
-  // Initialize data on mount
+  // Initialize data on mount (only if user is authenticated)
   useEffect(() => {
-    fetchUnreadCount();
-    fetchContacts();
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      // Only fetch data if user is authenticated
+      fetchUnreadCount();
+      fetchContacts();
+    }
   }, [fetchUnreadCount, fetchContacts]);
 
   return {

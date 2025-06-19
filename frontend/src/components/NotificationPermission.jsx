@@ -73,8 +73,6 @@ const NotificationPermission = () => {
         if (Notification.permission === 'granted') {
           new Notification(payload.notification?.title || 'Young Eagles', {
             body: payload.notification?.body,
-            icon: '/pwa-192x192.png',
-            badge: '/pwa-96x96.png',
             tag: payload.data?.type || 'default'
           });
         }
