@@ -85,7 +85,7 @@ const DownloadApp = () => {
                 Access the app directly in your browser
               </p>
               <a
-                href={window.location.hostname === 'localhost' ? 'http://localhost:3003' : 'https://pwa.youngeagles.com'}
+                href={window.location.hostname === 'localhost' ? 'http://localhost:3002' : `${window.location.protocol}//${window.location.host}/app`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200"
@@ -109,7 +109,7 @@ const DownloadApp = () => {
               </p>
               <div className="flex justify-center mb-4">
                 <PWAQRCode 
-                  url={window.location.hostname === 'localhost' ? 'http://localhost:3003' : 'https://pwa.youngeagles.com'}
+                  url={window.location.hostname === 'localhost' ? 'http://localhost:3002' : `${window.location.protocol}//${window.location.host}/app`}
                   size={128}
                 />
               </div>

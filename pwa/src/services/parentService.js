@@ -4,39 +4,24 @@ import { API_CONFIG } from '../config/api.js';
 class ParentService {
   // Get parent dashboard data
   async getDashboardData() {
-    try {
-      const response = await api.get(API_CONFIG.ENDPOINTS.PARENT_DASHBOARD);
-      return response.data;
-    } catch (error) {
-      console.warn('Failed to fetch parent dashboard data, using mock data');
-      return this.getMockDashboardData();
-    }
+    const response = await api.get(API_CONFIG.ENDPOINTS.PARENT_DASHBOARD);
+    return response.data;
   }
 
   // Get children list
   async getChildren() {
-    try {
-      const response = await api.get(API_CONFIG.ENDPOINTS.CHILDREN);
-      return response.data;
-    } catch (error) {
-      console.warn('Failed to fetch children data, using mock data');
-      return this.getMockChildren();
-    }
+    const response = await api.get(API_CONFIG.ENDPOINTS.CHILDREN);
+    return response.data;
   }
 
   // Get homework list
   async getHomework(childId = null) {
-    try {
-      const url = childId 
-        ? `${API_CONFIG.ENDPOINTS.HOMEWORK_LIST}?child_id=${childId}`
-        : API_CONFIG.ENDPOINTS.HOMEWORK_LIST;
-      
-      const response = await api.get(url);
-      return response.data;
-    } catch (error) {
-      console.warn('Failed to fetch homework data, using mock data');
-      return this.getMockHomework();
-    }
+    const url = childId 
+      ? `${API_CONFIG.ENDPOINTS.HOMEWORK_LIST}?child_id=${childId}`
+      : API_CONFIG.ENDPOINTS.HOMEWORK_LIST;
+    
+    const response = await api.get(url);
+    return response.data;
   }
 
   // Submit homework
@@ -55,13 +40,8 @@ class ParentService {
 
   // Get notifications
   async getNotifications() {
-    try {
-      const response = await api.get(API_CONFIG.ENDPOINTS.NOTIFICATIONS);
-      return response.data;
-    } catch (error) {
-      console.warn('Failed to fetch notifications, using mock data');
-      return this.getMockNotifications();
-    }
+    const response = await api.get(API_CONFIG.ENDPOINTS.NOTIFICATIONS);
+    return response.data;
   }
 
   // Mark notification as read
@@ -77,13 +57,8 @@ class ParentService {
 
   // Get messages
   async getMessages() {
-    try {
-      const response = await api.get(API_CONFIG.ENDPOINTS.MESSAGES);
-      return response.data;
-    } catch (error) {
-      console.warn('Failed to fetch messages, using mock data');
-      return this.getMockMessages();
-    }
+    const response = await api.get(API_CONFIG.ENDPOINTS.MESSAGES);
+    return response.data;
   }
 
   // Send message

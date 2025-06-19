@@ -4,24 +4,14 @@ import { API_CONFIG } from '../config/api.js';
 class AdminService {
   // Get admin dashboard data
   async getDashboardData() {
-    try {
-      const response = await api.get(API_CONFIG.ENDPOINTS.ADMIN_DASHBOARD);
-      return response.data;
-    } catch (error) {
-      console.warn('Failed to fetch admin dashboard data, using mock data');
-      return this.getMockDashboardData();
-    }
+    const response = await api.get(API_CONFIG.ENDPOINTS.ADMIN_DASHBOARD);
+    return response.data;
   }
 
   // Get all users
   async getUsers() {
-    try {
-      const response = await api.get(API_CONFIG.ENDPOINTS.ADMIN_USERS);
-      return response.data;
-    } catch (error) {
-      console.warn('Failed to fetch users data, using mock data');
-      return this.getMockUsers();
-    }
+    const response = await api.get(API_CONFIG.ENDPOINTS.ADMIN_USERS);
+    return response.data;
   }
 
   // Create new user
@@ -59,46 +49,26 @@ class AdminService {
 
   // Get system statistics
   async getSystemStats() {
-    try {
-      const response = await api.get('/admin/stats');
-      return response.data;
-    } catch (error) {
-      console.warn('Failed to fetch system stats, using mock data');
-      return this.getMockSystemStats();
-    }
+    const response = await api.get('/admin/stats');
+    return response.data;
   }
 
   // Get all homework assignments (admin view)
   async getAllHomework() {
-    try {
-      const response = await api.get('/admin/homework');
-      return response.data;
-    } catch (error) {
-      console.warn('Failed to fetch homework data, using mock data');
-      return this.getMockAllHomework();
-    }
+    const response = await api.get('/admin/homework');
+    return response.data;
   }
 
   // Get system logs
   async getSystemLogs() {
-    try {
-      const response = await api.get('/admin/logs');
-      return response.data;
-    } catch (error) {
-      console.warn('Failed to fetch system logs, using mock data');
-      return this.getMockSystemLogs();
-    }
+    const response = await api.get('/admin/logs');
+    return response.data;
   }
 
   // Get reports
   async getReports(reportType) {
-    try {
-      const response = await api.get(`/admin/reports/${reportType}`);
-      return response.data;
-    } catch (error) {
-      console.warn(`Failed to fetch ${reportType} reports, using mock data`);
-      return this.getMockReports(reportType);
-    }
+    const response = await api.get(`/admin/reports/${reportType}`);
+    return response.data;
   }
 
   // Send system announcement

@@ -36,34 +36,14 @@ class AuthService {
     try {
       console.log('🔐 Attempting login:', { email, role });
 
-      // For development mode, still allow mock login as fallback
-      if (API_CONFIG.isDevelopment) {
-        try {
-          // Try real API first
-          const response = await api.post(API_CONFIG.ENDPOINTS.LOGIN, {
-            email,
-            password,
-            role
-          });
+      // Always use live API - no mock data fallback
+      const response = await api.post(API_CONFIG.ENDPOINTS.LOGIN, {
+        email,
+        password,
+        role
+      });
 
-          return this.handleLoginSuccess(response.data);
-        } catch (apiError) {
-          console.warn('🔄 API login failed, using mock data:', apiError.message);
-          
-          // Fallback to mock login in development
-          const mockData = this.createMockUser(email, role);
-          return this.handleLoginSuccess(mockData);
-        }
-      } else {
-        // Production mode - only use real API
-        const response = await api.post(API_CONFIG.ENDPOINTS.LOGIN, {
-          email,
-          password,
-          role
-        });
-
-        return this.handleLoginSuccess(response.data);
-      }
+      return this.handleLoginSuccess(response.data);
     } catch (error) {
       console.error('🚨 Login failed:', error);
       const errorMessage = error.response?.data?.message || 'Login failed. Please check your credentials.';

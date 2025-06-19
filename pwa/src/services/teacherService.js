@@ -4,39 +4,24 @@ import { API_CONFIG } from '../config/api.js';
 class TeacherService {
   // Get teacher dashboard data
   async getDashboardData() {
-    try {
-      const response = await api.get(API_CONFIG.ENDPOINTS.TEACHER_DASHBOARD);
-      return response.data;
-    } catch (error) {
-      console.warn('Failed to fetch teacher dashboard data, using mock data');
-      return this.getMockDashboardData();
-    }
+    const response = await api.get(API_CONFIG.ENDPOINTS.TEACHER_DASHBOARD);
+    return response.data;
   }
 
   // Get teacher's classes
   async getClasses() {
-    try {
-      const response = await api.get(API_CONFIG.ENDPOINTS.TEACHER_CLASSES);
-      return response.data;
-    } catch (error) {
-      console.warn('Failed to fetch teacher classes, using mock data');
-      return this.getMockClasses();
-    }
+    const response = await api.get(API_CONFIG.ENDPOINTS.TEACHER_CLASSES);
+    return response.data;
   }
 
   // Get students in teacher's classes
   async getStudents(classId = null) {
-    try {
-      const url = classId 
-        ? `/teacher/students?class_id=${classId}`
-        : '/teacher/students';
-      
-      const response = await api.get(url);
-      return response.data;
-    } catch (error) {
-      console.warn('Failed to fetch students data, using mock data');
-      return this.getMockStudents();
-    }
+    const url = classId 
+      ? `/teacher/students?class_id=${classId}`
+      : '/teacher/students';
+    
+    const response = await api.get(url);
+    return response.data;
   }
 
   // Create homework assignment
@@ -52,28 +37,18 @@ class TeacherService {
 
   // Get homework assignments created by teacher
   async getHomeworkAssignments() {
-    try {
-      const response = await api.get('/teacher/homework');
-      return response.data;
-    } catch (error) {
-      console.warn('Failed to fetch homework assignments, using mock data');
-      return this.getMockHomeworkAssignments();
-    }
+    const response = await api.get('/teacher/homework');
+    return response.data;
   }
 
   // Get homework submissions
   async getHomeworkSubmissions(homeworkId = null) {
-    try {
-      const url = homeworkId 
-        ? `/teacher/submissions?homework_id=${homeworkId}`
-        : '/teacher/submissions';
-      
-      const response = await api.get(url);
-      return response.data;
-    } catch (error) {
-      console.warn('Failed to fetch homework submissions, using mock data');
-      return this.getMockSubmissions();
-    }
+    const url = homeworkId 
+      ? `/teacher/submissions?homework_id=${homeworkId}`
+      : '/teacher/submissions';
+    
+    const response = await api.get(url);
+    return response.data;
   }
 
   // Grade homework submission
@@ -100,13 +75,8 @@ class TeacherService {
 
   // Get teacher's messages
   async getMessages() {
-    try {
-      const response = await api.get(API_CONFIG.ENDPOINTS.MESSAGES);
-      return response.data;
-    } catch (error) {
-      console.warn('Failed to fetch messages, using mock data');
-      return this.getMockMessages();
-    }
+    const response = await api.get(API_CONFIG.ENDPOINTS.MESSAGES);
+    return response.data;
   }
 
   // Update attendance

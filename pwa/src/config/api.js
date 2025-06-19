@@ -10,8 +10,9 @@ export const API_CONFIG = {
   
   // Get the appropriate API URL based on environment
   getApiUrl() {
-    if (this.isDevelopment) {
-      // In development, try local first, fallback to production
+    // Always use production API unless explicitly set to use local
+    const forceLocal = import.meta.env.VITE_FORCE_LOCAL_API === 'true';
+    if (forceLocal && this.isDevelopment) {
       return this.LOCAL_URL;
     }
     return this.BASE_URL;

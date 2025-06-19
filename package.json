@@ -10,7 +10,9 @@
     "start:all": "./start-all.sh",
     "stop:all": "./stop-all.sh",
     "dev:pwa": "cd pwa && npm run dev",
-    "build:pwa": "cd pwa && npm run build"
+    "build:pwa": "cd pwa && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "build:all": "./build-for-vercel.sh"
   },
   "devDependencies": {
     "eslint": "^9.27.0",
