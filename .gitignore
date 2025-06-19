@@ -69,3 +69,4 @@ pwa/.env*
 api/node_modules/
 api/.env*
 
+.vercel
