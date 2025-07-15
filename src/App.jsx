@@ -36,12 +36,6 @@ import AuthTest from './auth/AuthTest';
 import MessagingCenter from './components/Messaging/MessagingCenter';
 import './App.css';
 
-// Lazy import new components with fallbacks
-const DownloadApp = React.lazy(() => 
-  import('./pages/DownloadApp').catch(() => ({ 
-    default: () => <div className="p-4 text-center">Download page temporarily unavailable</div> 
-  }))
-);
 
 function App() {
   // Initialize AOS animation library
@@ -97,11 +91,6 @@ function App() {
             <Route path="/phone-login" element={<PhoneLogin />} />
             <Route path="/auth/action" element={<FirebaseActionHandler />} />
             <Route path="/auth-test" element={<AuthTest />} />
-            <Route path="/download" element={
-              <React.Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
-                <DownloadApp />
-              </React.Suspense>
-            } />
 
             {/* Private Routes */}
             <Route element={<PrivateRoute />}>

@@ -60,11 +60,6 @@ temp/
 .cache/
 .parcel-cache/
 
-# PWA specific (since PWA has its own .gitignore)
-pwa/node_modules/
-pwa/dist/
-pwa/.env*
-
 # API specific (since API has its own repo)
 api/node_modules/
 api/.env*

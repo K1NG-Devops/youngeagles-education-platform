@@ -1,6 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { FaDownload, FaMobile } from "react-icons/fa";
 import MyRegisterButton from "../components/MyRegisterButton";
 import MyButton from "../components/MyButton";
 import codeAPillar from "../assets/codeAPillar.png";
@@ -156,41 +154,6 @@ const Programs = () => {
         </p>
       </section>
 
-      {/* Mobile App Download Section */}
-      <section
-        className="mt-12"
-        data-aos="fade-up"
-        data-aos-delay="600"
-      >
-        <h2 className="text-3xl font-semibold text-center mb-8 text-purple-800">
-          📱 Download Our Mobile App
-        </h2>
-        <p className="text-center text-gray-700 mb-8 max-w-2xl mx-auto">
-          Get the Young Eagles mobile app for the best experience! Access homework, 
-          track your child's progress, and stay connected with teachers.
-        </p>
-        <div className="text-center">
-          <div className="bg-white rounded-xl p-8 shadow-lg max-w-md mx-auto">
-            <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-              <FaMobile className="text-2xl text-blue-600" />
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">
-              Young Eagles PWA App
-            </h3>
-            <p className="text-gray-600 mb-6">
-              Access our Progressive Web App for the best mobile experience. 
-              View homework, track progress, and stay connected!
-            </p>
-            <Link
-              to="/download"
-              className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-md"
-            >
-              <FaDownload className="mr-2" />
-              Get the App
-            </Link>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };
