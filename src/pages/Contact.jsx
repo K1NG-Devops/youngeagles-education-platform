@@ -63,19 +63,19 @@ const Contact = () => {
     {
       icon: FaPhone,
       title: "Phone",
-      details: ["+1 (555) 123-4567", "Available 7:00 AM - 6:00 PM"],
+      details: ["081 523 6000 (Main)", "067 494 2359 (Secondary)"],
       color: "text-blue-600"
     },
     {
       icon: FaEnvelope,
       title: "Email",
-      details: ["info@youngeagles.edu", "admissions@youngeagles.edu"],
+      details: ["info@youngeagles.org.za", "admin@youngeagles.org.za"],
       color: "text-green-600"
     },
     {
       icon: FaMapMarkerAlt,
       title: "Address",
-      details: ["123 Learning Lane", "Education City, EC 12345"],
+      details: ["7118 Section U Shabangu Street", "Mamelodi Pretoria 0122"],
       color: "text-purple-600"
     },
     {

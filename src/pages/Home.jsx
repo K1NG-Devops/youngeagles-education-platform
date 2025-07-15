@@ -11,6 +11,7 @@ import 'swiper/css/autoplay';
 import { Autoplay } from 'swiper/modules';
 import SEOManager from '../components/SEO/SEOManager';
 import { GoogleAd, EducationalBanner, SidebarAd } from '../components/Ads/AdManager';
+import MarketingCTA from '../components/MarketingCTA';
 
 const kidsImage = "https://img.freepik.com/free-photo/realistic-scene-with-young-children-with-autism-playing_23-2151241999.jpg";
 
@@ -53,7 +54,7 @@ const Home = () => {
   const stats = [
     { number: 200, label: "Happy Children", icon: FaUsers },
     { number: 15, label: "Years Experience", icon: FaStar },
-    { number: 50, label: "Expert Staff", icon: FaGraduationCap },
+    { number: 10, label: "Expert Staff", icon: FaGraduationCap },
     { number: 98, label: "Parent Satisfaction", icon: FaHeart, suffix: "%" }
   ];
 
@@ -339,10 +340,10 @@ const Home = () => {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-4 italic">
-                  "Young Eagles has been amazing for our daughter. The Society 5.0 integration has really prepared her for the digital world while maintaining that loving, nurturing environment we wanted."
+                  "Young Eagles has transformed my child's learning experience. The dedicated teachers and innovative programs create such a nurturing environment. My daughter comes home excited about what she learned every day!"
                 </p>
-                <div className="font-bold text-gray-900">- Sarah Johnson</div>
-                <div className="text-gray-600 text-sm">Parent of Emma, Age 4</div>
+                <div className="font-bold text-gray-900">- Phindile Lethlake</div>
+                <div className="text-gray-600 text-sm">Parent at Young Eagles</div>
               </div>
               
               <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-xl p-6 shadow-lg" data-aos="fade-left">
@@ -352,10 +353,10 @@ const Home = () => {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-4 italic">
-                  "The STEM programs and coding activities have sparked my son's interest in technology. The teachers are incredible and truly care about each child's development."
+                  "The caring staff at Young Eagles go above and beyond for our children. The STEM programs and creative activities have helped my son develop confidence and a love for learning. Highly recommended!"
                 </p>
-                <div className="font-bold text-gray-900">- Michael Chen</div>
-                <div className="text-gray-600 text-sm">Parent of Lucas, Age 5</div>
+                <div className="font-bold text-gray-900">- Minah Mawasha</div>
+                <div className="text-gray-600 text-sm">Parent at Young Eagles</div>
               </div>
             </div>
 
@@ -420,6 +421,9 @@ const Home = () => {
             </div>
           </div>
         </section>
+
+        {/* Marketing CTA Section */}
+        <MarketingCTA />
       </div>
     </>
   );

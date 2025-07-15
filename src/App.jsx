@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Programs from './pages/Programs';
+import About from './pages/About';
+import Contact from './pages/Contact';
 import Dashboard from './pages/ParentDashboard/Dashboard';
 import PopUploadForm from './components/Parents/PopUploadForm';
 import PrivateRoute from './components/PrivateRoute';
@@ -34,6 +37,7 @@ import PhoneLogin from './auth/PhoneLogin';
 import NotificationManager from './components/NotificationManager';
 import AuthTest from './auth/AuthTest';
 import MessagingCenter from './components/Messaging/MessagingCenter';
+import PWAInstallPrompt from './components/PWAInstallPrompt';
 import './App.css';
 
 
@@ -47,8 +51,9 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <AutoLogout>
+    <HelmetProvider>
+      <Router>
+        <AutoLogout>
         <Toaster
           position="top-right"
           richColors
@@ -78,6 +83,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
               <Route path="/programs" element={<Programs />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
             </Route>
 
             {/* Public Routes */}
@@ -122,8 +129,12 @@ function App() {
         
         {/* WhatsApp/Facebook-style Notifications */}
         <NotificationManager />
-      </AutoLogout>
-    </Router>
+        
+        {/* PWA Install Prompt */}
+        <PWAInstallPrompt />
+        </AutoLogout>
+      </Router>
+    </HelmetProvider>
   );
 }
 

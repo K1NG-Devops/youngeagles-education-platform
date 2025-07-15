@@ -7,9 +7,11 @@ import useRedirect from "../hooks/useRedirect";
 import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
-  { to: "/home", label: "Home" },
+  { to: "/", label: "Home" },
   { to: "/programs", label: "Programs" },
-  { to: "/dashboard", label: "Dashboard" },
+  { to: "/about", label: "About" },
+  { to: "/contact", label: "Contact" },
+  { to: "https://youngeagles.org.za", label: "Dashboard", external: true },
   { to: "/popupload", label: "Upload POP", highlight: true },
 ];
 
@@ -42,7 +44,18 @@ function Navbar() {
         {/* Desktop Menu */}
         <ul className="hidden md:flex items-center gap-4 ">
           {links.map((link, i) =>
-            link.isRedirect ? (
+            link.external ? (
+              <li key={i}>
+                <a
+                  href={link.to}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={link.highlight ? styles.highlight : styles.link}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ) : link.isRedirect ? (
               <li key={i} onClick={() => handleRedirect(link.to)} className="cursor-pointer">
                 <span className={styles.link}>{link.label}</span>
               </li>
