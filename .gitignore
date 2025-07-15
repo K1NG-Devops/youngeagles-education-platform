@@ -70,3 +70,4 @@ api/node_modules/
 api/.env*
 
 .vercel
+node_modules
