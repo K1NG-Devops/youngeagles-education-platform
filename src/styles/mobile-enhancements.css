@@ -127,7 +127,7 @@
 }
 
 .activity-sequence-active {
-  @apply ring-2 ring-yellow-500 bg-yellow-50 animate-pulse;
+  @apply ring-2 ring-blue-500 bg-blue-50 animate-pulse;
 }
 
 /* Robotics Activity Mobile */
@@ -148,7 +148,7 @@
 }
 
 .robot-cell-goal {
-  @apply bg-yellow-400 border-yellow-600;
+  @apply bg-green-400 border-green-600;
 }
 
 .robot-cell-start {

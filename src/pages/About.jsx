@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaUsers, FaHeart, FaGraduationCap, FaShieldAlt, FaStar, FaRocket } from 'react-icons/fa';
 import SEOManager from '../components/SEO/SEOManager';
-import { EducationalBanner } from '../components/Ads/AdManager';
+import { EducationalBanner } from '../components/Ads/AdManager_Safe';
 
 const About = () => {
   const values = [

@@ -6,6 +6,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Aggressive reset to remove all borders and outlines */
+* {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+*:focus,
+*:focus-visible,
+*:focus-within,
+*:hover,
+*:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Only allow specific borders where needed */
+.border,
+[class*="border-"],
+.shadow,
+[class*="shadow-"],
+.ring,
+[class*="ring-"] {
+  border: revert !important;
+  box-shadow: revert !important;
+  outline: revert !important;
+}
+
 .circular-logo {
   border-radius: 50%;
   object-fit: cover; /* Ensures the image covers the area without distortion */

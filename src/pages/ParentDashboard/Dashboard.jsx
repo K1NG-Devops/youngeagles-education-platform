@@ -428,15 +428,6 @@ const Dashboard = () => {
                   </Link>
                 </li>
               </ul>
-              <Link
-                to="/popupload"
-                className="ml-2 inline-block px-8 mt-5 bg-pink-500 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-pink-600 transition"
-                data-aos="fade-up"
-                data-aos-duration="500"
-                data-aos-delay="1000"
-              >
-                Upload POP
-              </Link>
             </nav>
           </div>
         </div>

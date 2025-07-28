@@ -83,7 +83,10 @@ const useAuth = () => {
 
   const logout = async () => {
     try {
-      await auth.signOut(); // Sign out from Firebase
+      // Only sign out if auth is available and user is signed in
+      if (auth && auth.currentUser) {
+        await auth.signOut(); // Sign out from Firebase
+      }
     } catch (e) {
       console.error('Error signing out from Firebase:', e);
     }

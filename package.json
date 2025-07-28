@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "build:prod": "NODE_ENV=production vite build",
-    "vercel-build": "vite build",
+    "vercel-build": "npm install --legacy-peer-deps && vite build",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "test": "echo \"No test suite defined. Add tests with Jest or React Testing Library.\" && exit 1",
@@ -62,6 +62,9 @@
     "postcss": "^8.4.47",
     "tailwindcss": "^4.1.5",
     "vite": "^7.0.4"
+  },
+  "npmConfig": {
+    "legacy-peer-deps": true
   },
   "engines": {
     "node": ">=18"

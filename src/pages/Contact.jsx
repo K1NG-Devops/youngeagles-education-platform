@@ -16,7 +16,7 @@ import {
   FaHeart
 } from 'react-icons/fa';
 import SEOManager from '../components/SEO/SEOManager';
-import { EducationalBanner, SidebarAd } from '../components/Ads/AdManager';
+import { EducationalBanner, SidebarAd } from '../components/Ads/AdManager_Safe';
 
 const Contact = () => {
   const [formData, setFormData] = useState({

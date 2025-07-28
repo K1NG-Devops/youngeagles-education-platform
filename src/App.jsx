@@ -7,7 +7,6 @@ import Programs from './pages/Programs';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Dashboard from './pages/ParentDashboard/Dashboard';
-import PopUploadForm from './components/Parents/PopUploadForm';
 import PrivateRoute from './components/PrivateRoute';
 import Login from './auth/Login';
 import TeacherLogin from './teacher/TeacherLogin';
@@ -22,7 +21,6 @@ import TeacherDashboard from './pages/TeacherDashboard/TeacherDashboard';
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import TeacherChildrenList from './teacher/TeacherChildrenList';
 import AttendancePage from "./teacher/AttendancePage";
-import AutoLogout from './components/AutoLogout';
 import HomeworkList from './pages/HomeworkList';
 import UploadHomework from './pages/TeacherDashboard/UploadHomework';
 import SubmitWork from './pages/ParentDashboard/SubmitWork';
@@ -38,6 +36,10 @@ import NotificationManager from './components/NotificationManager';
 import AuthTest from './auth/AuthTest';
 import MessagingCenter from './components/Messaging/MessagingCenter';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
+import WhatsAppFloat from './components/WhatsAppFloat';
+import PWAPromotion from './components/PWAPromotion';
+import FloatingElements from './components/FloatingElements';
+import BubbleAnimation from './components/BubbleAnimation';
 import './App.css';
 
 
@@ -53,7 +55,6 @@ function App() {
   return (
     <HelmetProvider>
       <Router>
-        <AutoLogout>
         <Toaster
           position="top-right"
           richColors
@@ -102,7 +103,6 @@ function App() {
             {/* Private Routes */}
             <Route element={<PrivateRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/popupload" element={<PopUploadForm />} />
               <Route path="/notifications" element={<Notifications />} />
               <Route path="/student/homework" element={<HomeworkList />} />
               <Route path="/submit-work" element={<SubmitWork />} />
@@ -124,6 +124,10 @@ function App() {
             <Route path="/unauthorized" element={<div className="p-4 text-center">You are not authorized to view this page.</div>} />
         </Routes>
         
+        {/* Global Background Animations */}
+        <FloatingElements />
+        <BubbleAnimation />
+        
         {/* Notification Components */}
         <NotificationPermission />
         
@@ -132,7 +136,13 @@ function App() {
         
         {/* PWA Install Prompt */}
         <PWAInstallPrompt />
-        </AutoLogout>
+        
+        {/* WhatsApp Floating Button */}
+        <WhatsAppFloat />
+        
+        {/* PWA Promotion Banner */}
+        <PWAPromotion />
+        
       </Router>
     </HelmetProvider>
   );
