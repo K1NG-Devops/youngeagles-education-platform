@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaStar, FaUsers, FaGraduationCap, FaHeart, FaRocket, FaShieldAlt } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import { FaStar, FaUsers, FaGraduationCap, FaHeart, FaRocket, FaShieldAlt, FaMobile, FaBolt, FaWifi, FaBell, FaDownload } from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import TracksuitPromo from '../components/Parents/TracksuitPromo';
@@ -10,8 +11,12 @@ import 'swiper/css';
 import 'swiper/css/autoplay';
 import { Autoplay } from 'swiper/modules';
 import SEOManager from '../components/SEO/SEOManager';
-import { GoogleAd, EducationalBanner, SidebarAd } from '../components/Ads/AdManager';
+import AdManager from '../components/AdManager';
 import MarketingCTA from '../components/MarketingCTA';
+import DatabaseService from '../services/DatabaseService';
+import PWAEarlyAccessButton from '../components/PWAEarlyAccessButton';
+import ErrorBoundary from '../components/ErrorBoundary';
+import { toast } from 'sonner';
 
 const kidsImage = "https://img.freepik.com/free-photo/realistic-scene-with-young-children-with-autism-playing_23-2151241999.jpg";
 
@@ -117,11 +122,12 @@ const Home = () => {
         {/* Ad Banner */}
         <section className="py-8 px-4">
           <div className="container mx-auto">
-            <EducationalBanner 
-              title="Educational Technology Partners"
-              description="Discover innovative learning tools that enhance your child's educational journey"
-              buttonText="Explore Tools"
-            />
+            <ErrorBoundary fallbackMessage="Educational banner temporarily unavailable">
+              <AdManager 
+                placement="header"
+                className="educational-banner"
+              />
+            </ErrorBoundary>
           </div>
         </section>
 
@@ -175,14 +181,16 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Google AdSense Display Ad */}
+        {/* AdSense Display Ad */}
         <section className="py-8 px-4">
           <div className="container mx-auto">
-            <GoogleAd 
-              slot="1234567890"
-              style={{ display: 'block', width: '100%', height: '250px' }}
-              className="my-8"
-            />
+            <ErrorBoundary fallbackMessage="Advertisement temporarily unavailable">
+              <AdManager 
+                placement="content"
+                className="my-8"
+                style={{ display: 'block', width: '100%', minHeight: '250px' }}
+              />
+            </ErrorBoundary>
           </div>
         </section>
 
@@ -226,14 +234,16 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Sidebar Ad Section */}
+        {/* Ad Section */}
         <section className="py-8 px-4 bg-gray-50">
           <div className="container mx-auto">
-            <div className="grid md:grid-cols-3 gap-6">
-              <SidebarAd type="educational" />
-              <SidebarAd type="parenting" />
-              <SidebarAd type="childcare" />
-            </div>
+            <ErrorBoundary fallbackMessage="Advertisements temporarily unavailable">
+              <div className="grid md:grid-cols-3 gap-6">
+                <AdManager placement="sidebar" />
+                <AdManager placement="content" />
+                <AdManager placement="footer" />
+              </div>
+            </ErrorBoundary>
           </div>
         </section>
 
@@ -360,39 +370,109 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Gallery Carousel */}
-            <div className="bg-pink-100 p-8 rounded-xl shadow-md">
-              <h3 className="text-2xl font-bold text-center text-pink-800 mb-6">Gallery Moments</h3>
-              <Swiper
-                modules={[Autoplay]}
-                spaceBetween={20}
-                slidesPerView={1.5}
-                centeredSlides={true}
-                loop={true}
-                autoplay={{ delay: 2000, reverseDirection: true }}
-                className="w-full max-w-6xl"
-              >
-                {["/gallery/img1.jpg", "/gallery/img2.jpg", "/gallery/img3.jpeg", "/gallery/img4.png"].map((src, index) => (
-                  <SwiperSlide key={index}>
-                    <img
-                      src={src}
-                      alt={`Gallery ${index + 1} - Children learning and playing at Young Eagles`}
-                      className="h-64 md:h-80 w-full object-cover rounded-xl transition-transform hover:scale-105"
-                      data-aos="fade-up"
-                      data-aos-delay={`${index * 100}`}
-                      loading="lazy"
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
+            {/* Enhanced Gallery Carousel */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 p-8 rounded-2xl shadow-lg border border-purple-100 relative overflow-hidden"
+            >
+              {/* Decorative elements */}
+              <div className="absolute top-4 right-4 text-3xl opacity-30">📸</div>
+              <div className="absolute bottom-4 left-4 text-2xl opacity-30">🌟</div>
+              <div className="absolute top-1/2 left-8 text-xl opacity-20">🎨</div>
+              
+              <div className="relative z-10">
+                <h3 className="text-3xl font-bold text-center mb-2 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  📷 Gallery Moments
+                </h3>
+                <p className="text-center text-gray-600 mb-8">
+                  Capturing joy, learning, and magical moments every day
+                </p>
+
+                <Swiper
+                  modules={[Autoplay]}
+                  spaceBetween={20}
+                  slidesPerView={1}
+                  breakpoints={{
+                    640: { slidesPerView: 2 },
+                    768: { slidesPerView: 2.5 },
+                    1024: { slidesPerView: 3 }
+                  }}
+                  centeredSlides={true}
+                  loop={true}
+                  autoplay={{ 
+                    delay: 3000, 
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: true
+                  }}
+                  className="w-full max-w-6xl gallery-swiper"
+                >
+                  {[
+                    { src: "/gallery/img1.jpg", caption: "Creative Art Time", emoji: "🎨" },
+                    { src: "/gallery/img2.jpg", caption: "Learning Together", emoji: "📚" },
+                    { src: "/gallery/img3.jpeg", caption: "Outdoor Adventures", emoji: "🌳" },
+                    { src: "/gallery/img4.png", caption: "STEM Discovery", emoji: "🔬" },
+                    { src: "/gallery/img1.jpg", caption: "Music & Movement", emoji: "🎵" },
+                    { src: "/gallery/img2.jpg", caption: "Friendship Building", emoji: "🤝" }
+                  ].map((item, index) => (
+                    <SwiperSlide key={index}>
+                      <div className="relative group cursor-pointer">
+                        <div className="relative overflow-hidden rounded-xl shadow-lg">
+                          <img
+                            src={item.src}
+                            alt={`${item.caption} - Children at Young Eagles`}
+                            className="h-64 md:h-80 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            loading="lazy"
+                          />
+                          
+                          {/* Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div className="absolute bottom-4 left-4 text-white">
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className="text-2xl">{item.emoji}</span>
+                                <span className="font-semibold">{item.caption}</span>
+                              </div>
+                              <div className="text-sm opacity-90">Young Eagles Memories</div>
+                            </div>
+                          </div>
+
+                          {/* Corner decoration */}
+                          <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span className="text-lg">{item.emoji}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+
+                {/* Gallery stats */}
+                <div className="flex justify-center gap-8 mt-8 pt-6 border-t border-purple-200">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-purple-600">500+</div>
+                    <div className="text-sm text-gray-600">Happy Moments</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-pink-600">Daily</div>
+                    <div className="text-sm text-gray-600">New Memories</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-blue-600">100%</div>
+                    <div className="text-sm text-gray-600">Pure Joy</div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </section>
 
         {/* Existing sections from original file */}
         <section className="px-4 py-8">
           <div className="container mx-auto">
-            <TracksuitPromo />
+            <ErrorBoundary fallbackMessage="Tracksuit promotion temporarily unavailable">
+              <TracksuitPromo />
+            </ErrorBoundary>
           </div>
         </section>
 
@@ -423,7 +503,88 @@ const Home = () => {
         </section>
 
         {/* Marketing CTA Section */}
-        <MarketingCTA />
+        <ErrorBoundary fallbackMessage="Marketing section temporarily unavailable">
+          <MarketingCTA />
+        </ErrorBoundary>
+
+        {/* PWA Early Access Section */}
+        <section className="py-16 px-4 bg-gradient-to-br from-indigo-50 to-purple-50">
+          <div className="container mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div data-aos="fade-right">
+                <div className="flex items-center gap-3 mb-4">
+                  <FaMobile className="text-3xl text-blue-600" />
+                  <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                    Coming Soon
+                  </span>
+                </div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                  Young Eagles PWA App
+                </h2>
+                <p className="text-lg text-gray-600 mb-6">
+                  Get ready for the ultimate mobile experience! Our Progressive Web App will give you 
+                  native app features right in your browser - no app store required.
+                </p>
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-center">
+                    <FaBolt className="text-yellow-600 text-xl mr-3" />
+                    <span className="text-gray-700">Lightning-fast performance</span>
+                  </div>
+                  <div className="flex items-center">
+                    <FaWifi className="text-blue-600 text-xl mr-3" />
+                    <span className="text-gray-700">Works offline</span>
+                  </div>
+                  <div className="flex items-center">
+                    <FaBell className="text-purple-600 text-xl mr-3" />
+                    <span className="text-gray-700">Push notifications</span>
+                  </div>
+                  <div className="flex items-center">
+                    <FaDownload className="text-green-600 text-xl mr-3" />
+                    <span className="text-gray-700">Install directly from browser</span>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button
+                    onClick={() => window.open('https://youngeagles.org.za', '_blank')}
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 font-semibold"
+                  >
+                    <FaRocket />
+                    Try PWA Now
+                  </button>
+                  <PWAEarlyAccessButton />
+                </div>
+              </div>
+              
+              <div data-aos="fade-left" className="relative">
+                <div className="bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-3xl p-8 text-white relative overflow-hidden">
+                  <div className="absolute inset-0 bg-black/10"></div>
+                  <div className="relative z-10">
+                    <div className="flex justify-center mb-6">
+                      <div className="bg-white/20 p-6 rounded-2xl">
+                        <FaMobile className="text-6xl" />
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-bold text-center mb-4">Early Access Features</h3>
+                    <div className="space-y-3 text-center">
+                      <div className="bg-white/10 p-3 rounded-lg">
+                        <span className="font-semibold">📱 Native App Experience</span>
+                      </div>
+                      <div className="bg-white/10 p-3 rounded-lg">
+                        <span className="font-semibold">🔔 Real-time Updates</span>
+                      </div>
+                      <div className="bg-white/10 p-3 rounded-lg">
+                        <span className="font-semibold">👨‍👩‍👧‍👦 Parent Dashboard</span>
+                      </div>
+                      <div className="bg-white/10 p-3 rounded-lg">
+                        <span className="font-semibold">📚 Learning Resources</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </>
   );

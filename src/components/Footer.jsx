@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import AdManager from './AdManager';
 
 const Footer = () => (
   <footer className="bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 text-white py-12">
@@ -65,6 +66,11 @@ const Footer = () => (
             </li>
           </ul>
         </div>
+      </div>
+
+      {/* Footer Ad Banner */}
+      <div className="mt-8 mb-4">
+        <AdManager placement="footer" className="flex justify-center" />
       </div>
 
       {/* Bottom Bar */}

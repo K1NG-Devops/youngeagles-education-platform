@@ -1,5 +1,6 @@
 import React from 'react';
 import ResponsiveAd from './ResponsiveAd';
+import ErrorBoundary from './ErrorBoundary';
 
 const AdManager = ({ placement = 'content', className = '', style = {} }) => {
   const adConfigs = {
@@ -56,15 +57,17 @@ const AdManager = ({ placement = 'content', className = '', style = {} }) => {
   }
 
   return (
-    <div className={`ad-container ${className}`} style={style}>
-      <ResponsiveAd
-        slot={config.slot}
-        format={config.format}
-        className={config.className}
-        style={{ ...config.style, ...style }}
-        layoutKey={config.layoutKey}
-      />
-    </div>
+    <ErrorBoundary fallbackMessage="Ad content temporarily unavailable">
+      <div className={`ad-container ${className}`} style={style}>
+        <ResponsiveAd
+          slot={config.slot}
+          format={config.format}
+          className={config.className}
+          style={{ ...config.style, ...style }}
+          layoutKey={config.layoutKey}
+        />
+      </div>
+    </ErrorBoundary>
   );
 };
 

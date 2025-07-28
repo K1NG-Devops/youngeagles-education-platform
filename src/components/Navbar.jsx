@@ -12,7 +12,6 @@ const links = [
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
   { to: "https://youngeagles.org.za", label: "Dashboard", external: true },
-  { to: "/popupload", label: "Upload POP", highlight: true },
 ];
 
 const styles = {
