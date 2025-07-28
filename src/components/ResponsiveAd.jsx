@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const ResponsiveAd = ({ 
   slot, 
@@ -10,11 +10,26 @@ const ResponsiveAd = ({
 }) => {
   const publisherId = import.meta.env.VITE_ADSENSE_PUBLISHER_ID;
   const adRef = useRef(null);
+  const containerRef = useRef(null);
   const isLoaded = useRef(false);
+  const [shouldHide, setShouldHide] = useState(false);
+  const [adLoaded, setAdLoaded] = useState(false);
 
   useEffect(() => {
-    // Don't load if already loaded or in development mode
-    if (isLoaded.current || !publisherId || !slot || import.meta.env.DEV) {
+    // Don't load if already loaded or missing required data
+    if (isLoaded.current || !publisherId || !slot) {
+      return;
+    }
+    
+    // Check if we're in development mode
+    const isDev = import.meta.env.DEV || 
+                  import.meta.env.MODE === 'development' ||
+                  window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1' ||
+                  window.location.hostname.includes('localhost');
+    
+    // Skip in development mode
+    if (isDev) {
       return;
     }
 
@@ -39,6 +54,7 @@ const ResponsiveAd = ({
         }
       } catch (err) {
         console.warn('AdSense loading skipped:', err.message);
+        setShouldHide(true);
       }
     };
 
@@ -47,8 +63,55 @@ const ResponsiveAd = ({
     return () => clearTimeout(timer);
   }, [publisherId, slot]);
 
+  // Check if ad loaded successfully after attempting to load
+  useEffect(() => {
+    if (!isLoaded.current || !adRef.current) return;
+
+    const checkAdLoad = () => {
+      const adElement = adRef.current;
+      if (!adElement) {
+        setShouldHide(true);
+        return;
+      }
+
+      // Check if ad has loaded content
+      const hasContent = adElement.innerHTML.trim() !== '';
+      const hasChildren = adElement.children.length > 0;
+      const hasHeight = adElement.offsetHeight > 0;
+      
+      if (hasContent || hasChildren || hasHeight) {
+        setAdLoaded(true);
+      } else {
+        // Ad failed to load, hide the container
+        setShouldHide(true);
+      }
+    };
+
+    // Check immediately and then after a delay
+    const immediateCheck = setTimeout(checkAdLoad, 100);
+    const delayedCheck = setTimeout(checkAdLoad, 3000);
+
+    return () => {
+      clearTimeout(immediateCheck);
+      clearTimeout(delayedCheck);
+    };
+  }, [isLoaded.current]);
+
+  // Check if we're in development mode
+  const isDevelopment = import.meta.env.DEV || 
+                       import.meta.env.MODE === 'development' ||
+                       window.location.hostname === 'localhost' || 
+                       window.location.hostname === '127.0.0.1' ||
+                       window.location.hostname.includes('localhost');
+
   // Don't render ads in development mode or if missing required props
-  if (!publisherId || !slot || import.meta.env.DEV || window.location.hostname === 'localhost') {
+  if (!publisherId || !slot || isDevelopment) {
+    // In production, return null to collapse the container instead of showing placeholder
+    if (!isDevelopment && (!publisherId || !slot)) {
+      return null;
+    }
+    
+    // Only show placeholder in development
     return (
       <div className={`adsense-placeholder ${className}`} style={{ 
         backgroundColor: '#f0f0f0', 
@@ -66,8 +129,22 @@ const ResponsiveAd = ({
     );
   }
 
+  // Hide the ad container if it should be hidden due to failed load
+  if (shouldHide) {
+    return null;
+  }
+
   return (
-    <div className={`adsense-container ${className}`} style={style}>
+    <div 
+      ref={containerRef}
+      className={`adsense-container ${className}`} 
+      style={{
+        ...style,
+        // Ensure container collapses properly when empty
+        minHeight: adLoaded ? 'auto' : '0px',
+        overflow: 'hidden'
+      }}
+    >
       <ins
         ref={adRef}
         className="adsbygoogle"

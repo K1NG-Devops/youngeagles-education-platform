@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ResponsiveAd from './ResponsiveAd';
 import ErrorBoundary from './ErrorBoundary';
+import { EducationalBanner } from './Ads/AdManager_Safe';
 
 const AdManager = ({ placement = 'content', className = '', style = {} }) => {
   const adConfigs = {

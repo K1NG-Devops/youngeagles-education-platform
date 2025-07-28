@@ -6,6 +6,8 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Programs from './pages/Programs'
 import Donate from './pages/Donate'
+import DonationSuccess from './pages/DonationSuccess'
+import DonationCancelled from './pages/DonationCancelled'
 import './App.css'
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
           <Route path="programs" element={<Programs />} />
           <Route path="donate" element={<Donate />} />
         </Route>
+        <Route path="donation-success" element={<DonationSuccess />} />
+        <Route path="donation-cancelled" element={<DonationCancelled />} />
       </Routes>
     </Router>
   )

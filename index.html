@@ -11,7 +11,6 @@
     <meta name="keywords" content="daycare, early learning, child development, STEM education, Society 5.0, preschool, infant care, toddler programs" />
     <meta name="author" content="Young Eagles Education Platform" />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#2563eb" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -31,7 +30,6 @@
     <!-- Icons -->
     <link rel="icon" type="image/png" href="/app-icons/yehc_logo.png" />
     <link rel="icon" type="image/x-icon" href="/app-icons/yehc_logo.png" />
-    <link rel="apple-touch-icon" href="/app-icons/apple-touch-icon.png" />
     
     <!-- Preload Critical Resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -41,6 +39,24 @@
     
     <!-- Content Security Policy for production with comprehensive AdSense support -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob: *.googlesyndication.com *.doubleclick.net *.googleadservices.com *.googletagservices.com *.google.com *.gstatic.com; frame-src 'self' https: data: blob: *.googlesyndication.com *.doubleclick.net *.google.com; img-src 'self' data: https: blob: *.googlesyndication.com *.doubleclick.net *.google.com *.gstatic.com; connect-src 'self' http: https: ws: wss: data: blob: *.googlesyndication.com *.doubleclick.net *.google.com *.gstatic.com https://youngeagles-api-server.up.railway.app; style-src 'self' 'unsafe-inline' https: data: blob:; font-src 'self' https: data: blob:; media-src 'self' https: data: blob:; object-src 'none';" />
+    
+    <!-- Prevent PWA Installation Prompts -->
+    <script>
+      // Prevent browser PWA install prompts
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        return false;
+      });
+      
+      // Remove any PWA-related features
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for(let registration of registrations) {
+            registration.unregister();
+          }
+        });
+      }
+    </script>
     
     <!-- Google AdSense Script (Only load in production) -->
     <script>
@@ -99,6 +115,27 @@
     
     <!-- Styles -->
     <link rel="stylesheet" href="/src/index.css" />
+    
+    <!-- Additional styles to hide PWA prompts -->
+    <style>
+      /* Hide common PWA install prompt elements */
+      [data-testid*="pwa"], 
+      [class*="pwa-install"], 
+      [class*="install-prompt"], 
+      [class*="add-to-home"],
+      [id*="pwa-install"],
+      [id*="install-prompt"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+      
+      /* Hide browser-generated install banners */
+      ::-webkit-app-region {
+        display: none !important;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

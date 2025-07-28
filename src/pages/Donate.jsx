@@ -6,6 +6,7 @@ import { Label } from "../components/ui/label";
 import { FaHeart, FaPhone, FaCreditCard, FaUniversity, FaPaypal } from "react-icons/fa";
 import { EducationalBanner } from "../components/Ads/AdManager_Safe";
 import society5Background from "../assets/society-5.0.png";
+import CryptoJS from 'crypto-js';
 
 export default function Donate() {
   const [selectedAmount, setSelectedAmount] = useState("");
@@ -44,6 +45,43 @@ export default function Donate() {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  // Function to generate PayFast signature
+  const generatePayFastSignature = (data, passPhrase = "") => {
+    // Create parameter string for signature generation
+    const createParameterString = (data, passPhrase = "") => {
+      // Remove signature if it exists
+      const filteredData = { ...data };
+      delete filteredData.signature;
+      
+      // Sort parameters alphabetically and create parameter string
+      const sortedKeys = Object.keys(filteredData).sort();
+      let paramString = "";
+      
+      sortedKeys.forEach(key => {
+        const value = filteredData[key];
+        if (value !== "" && value !== null && value !== undefined) {
+          // PayFast doesn't use URL encoding for signature generation
+          paramString += `${key}=${value.toString().trim()}&`;
+        }
+      });
+      
+      // Remove the last &
+      paramString = paramString.slice(0, -1);
+      
+      // Add passphrase if provided
+      if (passPhrase !== "") {
+        paramString += `&passphrase=${encodeURIComponent(passPhrase.trim())}`;
+      }
+      
+      return paramString;
+    };
+    
+    const parameterString = createParameterString(data, passPhrase);
+    
+    // Generate MD5 hash for PayFast signature
+    return CryptoJS.MD5(parameterString).toString();
+  };
+
   const handlePayFastPayment = () => {
     const amount = selectedAmount || customAmount;
     if (!amount || !formData.fullName || !formData.email) {
@@ -62,12 +100,15 @@ export default function Donate() {
       name_last: formData.fullName.split(" ").slice(1).join(" ") || "",
       email_address: formData.email,
       m_payment_id: `YEHC_${Date.now()}`,
-      amount: amount,
+      amount: parseFloat(amount).toFixed(2),
       item_name: "Donation to Young Eagles Home Centre",
       item_description: "Digital Future Fund Donation",
-      custom_str1: formData.company,
+      custom_str1: formData.company || "",
       custom_str2: formData.contactNumber,
     };
+    
+    // Generate signature
+    payFastData.signature = generatePayFastSignature(payFastData);
 
     // Create form and submit to PayFast
     const form = document.createElement("form");

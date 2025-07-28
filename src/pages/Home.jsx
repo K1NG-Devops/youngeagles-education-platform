@@ -68,10 +68,7 @@ const Home = () => {
           <div className="container mx-auto text-center">
             <div className="flex flex-col md:flex-row items-center justify-center text-center text-pink-700 font-bold mb-8" data-aos="fade-down">
               <div data-aos="fade-right" data-aos-delay="200" className="text-xl md:text-5xl">
-                Welcome to
-              </div>
-              <div data-aos="fade-down" data-aos-delay="400" className="md:ml-4 text-base md:text-5xl text-pink-800">
-                Young Eagles
+                Welcome to Young Eagles
               </div>
               <div className="md:ml-4 text-xl md:text-5xl" data-aos="fade-left" data-aos-delay="600">
                 Day Care
@@ -224,7 +221,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Ad Section */}
+        {/* Ad Section
         <section className="py-8 px-4 bg-gray-50">
           <div className="container mx-auto">
             <ErrorBoundary fallbackMessage="Advertisements temporarily unavailable">
@@ -235,7 +232,7 @@ const Home = () => {
               </div>
             </ErrorBoundary>
           </div>
-        </section>
+        </section> */}
 
         {/* Why Choose Us */}
         <section className="text-center mb-12" data-aos="fade-up transform hover:scale-105 transition duration-300 ease-in-out">
