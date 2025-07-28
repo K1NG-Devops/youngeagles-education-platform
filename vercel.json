@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "app/**/*": {
-      "runtime": "nodejs20.x"
-    }
-  },
   "framework": "vite",
   "buildCommand": "vite build",
   "installCommand": "npm install --legacy-peer-deps",
