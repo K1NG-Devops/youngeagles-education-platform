@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Programs from './pages/Programs';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Donate from './pages/Donate';
 import Dashboard from './pages/ParentDashboard/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 import Login from './auth/Login';
@@ -86,6 +87,7 @@ function App() {
               <Route path="/programs" element={<Programs />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/donate" element={<Donate />} />
             </Route>
 
             {/* Public Routes */}
