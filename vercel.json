@@ -1,8 +1,13 @@
 {
-  "installCommand": "npm install --legacy-peer-deps",
-  "buildCommand": "npm run vercel-build",
-  "outputDirectory": "dist",
+  "functions": {
+    "app/**/*": {
+      "runtime": "nodejs20.x"
+    }
+  },
   "framework": "vite",
+  "buildCommand": "vite build",
+  "installCommand": "npm install --legacy-peer-deps",
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/(.*)",
