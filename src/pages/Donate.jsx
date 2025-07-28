@@ -59,27 +59,33 @@ export default function Donate() {
       
       sortedKeys.forEach(key => {
         const value = filteredData[key];
-        if (value !== "" && value !== null && value !== undefined) {
-          // PayFast doesn't use URL encoding for signature generation
-          paramString += `${key}=${value.toString().trim()}&`;
+        // PayFast requires all non-empty values to be included
+        // Convert to string and trim, but keep empty strings if they exist
+        if (value !== null && value !== undefined) {
+          const stringValue = value.toString().trim();
+          // Include all values, even empty strings, but skip null/undefined
+          paramString += `${key}=${stringValue}&`;
         }
       });
       
       // Remove the last &
       paramString = paramString.slice(0, -1);
       
-      // Add passphrase if provided
+      // Add passphrase if provided - CRITICAL for production
       if (passPhrase !== "") {
-        paramString += `&passphrase=${encodeURIComponent(passPhrase.trim())}`;
+        paramString += `&passphrase=${passPhrase.trim()}`;
       }
       
+      console.log('PayFast Parameter String:', paramString); // Debug log
       return paramString;
     };
     
     const parameterString = createParameterString(data, passPhrase);
     
     // Generate MD5 hash for PayFast signature
-    return CryptoJS.MD5(parameterString).toString();
+    const signature = CryptoJS.MD5(parameterString).toString();
+    console.log('Generated PayFast Signature:', signature); // Debug log
+    return signature;
   };
 
   const handlePayFastPayment = () => {
@@ -91,8 +97,8 @@ export default function Donate() {
 
     // PayFast integration (production environment)
     const payFastData = {
-      merchant_id: "30921435", // Roboworld PayFast merchant ID
-      merchant_key: "pbwun2rxgmavh", // Roboworld PayFast merchant key
+      merchant_id: import.meta.env.VITE_PAYFAST_MERCHANT_ID,
+      merchant_key: import.meta.env.VITE_PAYFAST_MERCHANT_KEY,
       return_url: `${window.location.origin}/donation-success`,
       cancel_url: `${window.location.origin}/donation-cancelled`,
       notify_url: `${window.location.origin}/api/payfast-notify`,
@@ -107,8 +113,9 @@ export default function Donate() {
       custom_str2: formData.contactNumber,
     };
     
-    // Generate signature
-    payFastData.signature = generatePayFastSignature(payFastData);
+    // Generate signature with passphrase from environment
+    const passPhrase = import.meta.env.VITE_PAYFAST_PASSPHRASE;
+    payFastData.signature = generatePayFastSignature(payFastData, passPhrase);
 
     // Create form and submit to PayFast
     const form = document.createElement("form");
