@@ -1,6 +1,5 @@
 import React from 'react';
 import { FaUsers, FaHeart, FaGraduationCap, FaShieldAlt, FaStar, FaRocket } from 'react-icons/fa';
-import SEOManager from '../components/SEO/SEOManager';
 import { EducationalBanner } from '../components/Ads/AdManager_Safe';
 
 const About = () => {
@@ -56,13 +55,6 @@ const About = () => {
 
   return (
     <>
-      <SEOManager 
-        title="About Young Eagles Education Platform - Our Story & Mission"
-        description="Learn about Young Eagles Education Platform's mission, values, and expert team dedicated to providing premium daycare and early learning with Society 5.0 integration."
-        keywords="about young eagles, education platform story, daycare mission, early learning values, expert teachers"
-        url="https://youngeagles.edu/about"
-      />
-      
       <div className="min-h-screen pt-16">
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 text-white py-20">

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { teacherLogin } from "../auth/auth.js";
+import { teacherLogin } from "../auth/auth.jsx";
 import useAuth from "../hooks/useAuth";
 
 const TeacherLogin = () => {
@@ -55,7 +55,7 @@ const TeacherLogin = () => {
         console.log('Setting auth data:', authData);
         login(authData);
         
-        // Explicitly save teacher role to localStorage for PWA compatibility
+        // Save teacher role to localStorage
         localStorage.setItem('role', authData.role);
 
         setSuccess("Login successful!");

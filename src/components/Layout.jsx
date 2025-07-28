@@ -1,10 +1,12 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import BubbleAnimation from './BubbleAnimation';
 import { Outlet } from 'react-router-dom';
 
 const Layout = ({ children }) => (
   <div className="flex flex-col min-h-screen w-full overflow-x-hidden">
+    <BubbleAnimation />
     <Navbar />
     <main className="flex-grow w-full overflow-x-hidden">
       <Outlet />

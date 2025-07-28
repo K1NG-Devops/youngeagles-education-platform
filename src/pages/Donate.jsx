@@ -1,51 +1,60 @@
-import React, { useState } from "react"
-import { Card, CardContent, CardHeader } from "../ui/card"
-import { Button } from "../ui/button"
-import { Input } from "../ui/input"
-import { Label } from "../ui/label"
-import { Checkbox } from "../ui/checkbox"
-import { Heart, Phone, CreditCard } from "lucide-react"
+import React, { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { FaHeart, FaPhone, FaCreditCard, FaUniversity, FaPaypal } from "react-icons/fa";
+import { EducationalBanner } from "../components/Ads/AdManager_Safe";
+import society5Background from "../assets/society-5.0.png";
 
-export default function DonationForm() {
-  const [selectedAmount, setSelectedAmount] = useState("")
-  const [customAmount, setCustomAmount] = useState("")
-  const [selectedPayment, setSelectedPayment] = useState("")
+export default function Donate() {
+  const [selectedAmount, setSelectedAmount] = useState("");
+  const [customAmount, setCustomAmount] = useState("");
+  const [selectedPayment, setSelectedPayment] = useState("");
   const [formData, setFormData] = useState({
     fullName: "",
     company: "",
     contactNumber: "",
     email: "",
-  })
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
 
   const donationAmounts = [
     { value: "50", label: "R50" },
     { value: "100", label: "R100" },
+    { value: "150", label: "R150" },
+    { value: "200", label: "R200" },
     { value: "250", label: "R250" },
+    { value: "300", label: "R300" },
+    { value: "350", label: "R350" },
+    { value: "400", label: "R400" },
+    { value: "450", label: "R450" },
     { value: "500", label: "R500" },
-    { value: "1000", label: "R1000" },
-  ]
+  ];
 
   const paymentMethods = [
-    { value: "EFT", label: "EFT" },
-    { value: "Cash", label: "Cash" },
-    { value: "PayFast", label: "PayFast (Card/EFT)" },
-  ]
+    { value: "EFT", label: "EFT", icon: FaUniversity },
+    { value: "Cash", label: "Cash", icon: FaHeart },
+    { value: "PayFast", label: "PayFast (Card/EFT)", icon: FaCreditCard },
+  ];
 
   const handleInputChange = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
-  }
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
   const handlePayFastPayment = () => {
-    const amount = selectedAmount || customAmount
+    const amount = selectedAmount || customAmount;
     if (!amount || !formData.fullName || !formData.email) {
-      alert("Please fill in all required fields and select an amount")
-      return
+      alert("Please fill in all required fields and select an amount");
+      return;
     }
 
-    // PayFast integration
+    // PayFast integration (production environment)
     const payFastData = {
-      merchant_id: "10000100", // Replace with your PayFast merchant ID
-      merchant_key: "46f0cd694581a", // Replace with your PayFast merchant key
+      merchant_id: "30921435", // Roboworld PayFast merchant ID
+      merchant_key: "pbwun2rxgmavh", // Roboworld PayFast merchant key
       return_url: `${window.location.origin}/donation-success`,
       cancel_url: `${window.location.origin}/donation-cancelled`,
       notify_url: `${window.location.origin}/api/payfast-notify`,
@@ -58,43 +67,79 @@ export default function DonationForm() {
       item_description: "Digital Future Fund Donation",
       custom_str1: formData.company,
       custom_str2: formData.contactNumber,
-    }
+    };
 
     // Create form and submit to PayFast
-    const form = document.createElement("form")
-    form.method = "POST"
-    form.action = "https://sandbox.payfast.co.za/eng/process" // Use https://www.payfast.co.za/eng/process for production
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "https://www.payfast.co.za/eng/process"; // Production PayFast URL
 
     Object.entries(payFastData).forEach(([key, value]) => {
       if (value) {
-        const input = document.createElement("input")
-        input.type = "hidden"
-        input.name = key
-        input.value = value.toString()
-        form.appendChild(input)
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = value.toString();
+        form.appendChild(input);
       }
-    })
+    });
 
-    document.body.appendChild(form)
-    form.submit()
-  }
+    document.body.appendChild(form);
+    form.submit();
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
     if (selectedPayment === "PayFast") {
-      handlePayFastPayment()
-      return
+      handlePayFastPayment();
+      return;
     }
 
-    console.log("Form submitted:", {
-      ...formData,
-      selectedAmount: selectedAmount || customAmount,
-      selectedPayment,
-    })
+    // Simulate form submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setShowThankYou(true);
+      
+      // Reset form after showing thank you
+      setTimeout(() => {
+        setShowThankYou(false);
+        setFormData({
+          fullName: "",
+          company: "",
+          contactNumber: "",
+          email: "",
+        });
+        setSelectedAmount("");
+        setCustomAmount("");
+        setSelectedPayment("");
+      }, 5000);
+    }, 2000);
+  };
 
-    // Handle other payment methods
-    alert("Thank you for your donation! We will contact you with further details.")
+  const finalAmount = selectedAmount || customAmount;
+
+  if (showThankYou) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50">
+        <Card className="max-w-md w-full mx-4 shadow-xl">
+          <CardContent className="p-8 text-center">
+            <div className="text-6xl text-green-500 mb-4">
+              <FaHeart className="mx-auto" />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Thank You!</h2>
+            <p className="text-gray-600 mb-4">
+              Your generous donation of <strong>R{finalAmount}</strong> will make a real difference 
+              in the lives of children at Young Eagles Education Platform.
+            </p>
+            <p className="text-sm text-gray-500">
+              You will receive payment instructions via email shortly.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   return (
@@ -102,113 +147,120 @@ export default function DonationForm() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/gallery/img1.jpg"
-          alt="Children learning background"
-          className="w-full h-full object-cover"
+          src={society5Background}
+          alt="Digital education technology background - Society 5.0"
+          className="w-full h-full object-cover object-center"
+          style={{
+            minHeight: '100vh',
+            imageRendering: 'auto'
+          }}
         />
-        <div className="absolute inset-0 bg-black/25"></div>
+        {/* Responsive overlay - darker on mobile for better text readability */}
+        <div className="absolute inset-0 bg-black/40 sm:bg-black/35 md:bg-black/30 lg:bg-black/25 xl:bg-black/20"></div>
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto p-6">
-        <Card className="shadow-2xl backdrop-blur-sm bg-white/75 border-white/10">
-          <CardHeader className="text-center pb-6">
-            <div className="flex justify-center mb-4">
-              <img
-                src="/app-icons/yehc_logo.png"
-                alt="Young Eagles Home Care Centre Logo"
-                className="w-[120px] h-[120px] rounded-full shadow-lg object-cover"
-              />
-            </div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
-              <Heart className="inline-block w-6 h-6 text-red-500 mr-2" />
-              Donation Form – Help Us Build a Digital Future
-            </h1>
-          </CardHeader>
+      <div className="relative z-10 pt-32 sm:pt-36 lg:pt-40 max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        {/* Logo and Header - Outside of Card */}
+        <div className="text-center mb-8 lg:mb-12">
+          <div className="flex justify-center mb-8">
+            <img
+              src="/app-icons/yehc_logo.png"
+              alt="Young Eagles Home Care Centre Logo"
+              className="w-28 h-28 sm:w-36 sm:h-36 lg:w-48 lg:h-48 xl:w-52 xl:h-52 rounded-full shadow-2xl object-cover backdrop-blur-sm bg-white/10 border-4 border-white/30"
+            />
+          </div>
+          <h1 className="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 max-w-6xl mx-auto leading-tight drop-shadow-2xl">
+            <FaHeart className="inline-block w-6 h-6 sm:w-7 sm:h-7 lg:w-10 lg:h-10 xl:w-12 xl:h-12 text-red-400 mr-4 drop-shadow-lg" />
+            Donation Form – Help Us Build a Digital Future
+          </h1>
+        </div>
 
-          <CardContent className="space-y-8">
+        <Card className="shadow-2xl backdrop-blur-sm bg-white/95 border-white/20">
+
+          <CardContent className="space-y-12 px-6 lg:px-16 xl:px-20 pb-16">
             {/* Mission Statement */}
-            <div className="bg-gradient-to-r from-blue-50/60 to-cyan-50/60 p-6 rounded-lg border border-blue-100/30">
-              <p className="text-gray-700 leading-relaxed mb-4">
+            <div className="bg-gradient-to-r from-blue-50/90 to-cyan-50/90 p-8 lg:p-12 xl:p-16 rounded-2xl border border-blue-200/60 max-w-6xl mx-auto">
+              <p className="text-gray-700 text-lg lg:text-xl xl:text-2xl leading-relaxed mb-8 text-center">
                 At Young Eagles Home Centre, we are on a bold journey to digitize early childhood education. Our goal is
                 to introduce our large TV – acquiring a large TV to serve as a smart board. But to go further.
               </p>
 
               <div>
-                <h3 className="font-semibold text-gray-800 mb-3">Your donation will help us with:</h3>
-                <ul className="space-y-2 text-gray-700">
-                  <li className="flex items-center">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                    Tablets & computers
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                    Robotics and AI resources
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                    Educational books
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                    Website and platform development
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                    Hosting and digital tools for online learning
-                  </li>
-                </ul>
+                <h3 className="font-semibold text-gray-800 mb-6 text-xl lg:text-2xl xl:text-3xl text-center">Your donation will help us with:</h3>
+                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6 xl:gap-8 max-w-5xl mx-auto">
+                  <div className="flex items-center justify-center lg:justify-start">
+                    <div className="w-4 h-4 bg-blue-500 rounded-full mr-4 flex-shrink-0"></div>
+                    <span className="text-gray-700 text-lg lg:text-xl">Tablets & computers</span>
+                  </div>
+                  <div className="flex items-center justify-center lg:justify-start">
+                    <div className="w-4 h-4 bg-blue-500 rounded-full mr-4 flex-shrink-0"></div>
+                    <span className="text-gray-700 text-lg lg:text-xl">Robotics and AI resources</span>
+                  </div>
+                  <div className="flex items-center justify-center lg:justify-start">
+                    <div className="w-4 h-4 bg-blue-500 rounded-full mr-4 flex-shrink-0"></div>
+                    <span className="text-gray-700 text-lg lg:text-xl">Educational books</span>
+                  </div>
+                  <div className="flex items-center justify-center lg:justify-start">
+                    <div className="w-4 h-4 bg-blue-500 rounded-full mr-4 flex-shrink-0"></div>
+                    <span className="text-gray-700 text-lg lg:text-xl">Website and platform development</span>
+                  </div>
+                  <div className="flex items-center justify-center lg:justify-start xl:col-span-2">
+                    <div className="w-4 h-4 bg-blue-500 rounded-full mr-4 flex-shrink-0"></div>
+                    <span className="text-gray-700 text-lg lg:text-xl">Hosting and digital tools for online learning</span>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-12 max-w-6xl mx-auto">
               {/* Donor Information */}
-              <div className="bg-white/70 p-6 border rounded-lg shadow-sm">
-                <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                  <Heart className="w-5 h-5 text-red-500 mr-2" />
+              <div className="bg-white/90 p-8 lg:p-12 xl:p-16 border rounded-2xl shadow-lg">
+                <h3 className="text-2xl lg:text-3xl xl:text-4xl font-semibold text-gray-800 mb-8 flex items-center justify-center">
+                  <FaHeart className="w-6 h-6 lg:w-8 lg:h-8 xl:w-10 xl:h-10 text-red-500 mr-4" />
                   Make a Donation Today
                 </h3>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
                   <div>
-                    <Label htmlFor="fullName" className="text-sm font-medium">
+                    <Label htmlFor="fullName" className="text-lg lg:text-xl font-medium">
                       Donor's Full Name: <span className="text-red-500">*</span>
                     </Label>
                     <Input
                       id="fullName"
                       value={formData.fullName}
                       onChange={(e) => handleInputChange("fullName", e.target.value)}
-                      className="mt-1"
+                      className="mt-3 h-14 text-lg lg:text-xl"
                       required
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="company" className="text-sm font-medium">
+                    <Label htmlFor="company" className="text-lg lg:text-xl font-medium">
                       Company/Organization (if applicable):
                     </Label>
                     <Input
                       id="company"
                       value={formData.company}
                       onChange={(e) => handleInputChange("company", e.target.value)}
-                      className="mt-1"
+                      className="mt-3 h-14 text-lg lg:text-xl"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="contactNumber" className="text-sm font-medium">
+                    <Label htmlFor="contactNumber" className="text-lg lg:text-xl font-medium">
                       Contact Number: <span className="text-red-500">*</span>
                     </Label>
                     <Input
                       id="contactNumber"
                       value={formData.contactNumber}
                       onChange={(e) => handleInputChange("contactNumber", e.target.value)}
-                      className="mt-1"
+                      className="mt-3 h-14 text-lg lg:text-xl"
                       required
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="email" className="text-sm font-medium">
+                    <Label htmlFor="email" className="text-lg lg:text-xl font-medium">
                       Email Address: <span className="text-red-500">*</span>
                     </Label>
                     <Input
@@ -216,7 +268,7 @@ export default function DonationForm() {
                       type="email"
                       value={formData.email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
-                      className="mt-1"
+                      className="mt-3 h-14 text-lg lg:text-xl"
                       required
                     />
                   </div>
@@ -224,10 +276,10 @@ export default function DonationForm() {
               </div>
 
               {/* Donation Amount */}
-              <div className="bg-white/70 p-6 border rounded-lg shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Donation Amount</h3>
+              <div className="bg-white/90 p-8 lg:p-12 xl:p-16 border rounded-2xl shadow-lg">
+                <h3 className="text-2xl lg:text-3xl xl:text-4xl font-semibold text-gray-800 mb-8 text-center">Donation Amount</h3>
 
-                <div className="grid grid-cols-3 md:grid-cols-5 gap-3 mb-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-4 lg:gap-6 mb-8">
                   {donationAmounts.map((amount) => (
                     <label key={amount.value} className="cursor-pointer">
                       <input
@@ -236,16 +288,16 @@ export default function DonationForm() {
                         value={amount.value}
                         checked={selectedAmount === amount.value}
                         onChange={(e) => {
-                          setSelectedAmount(e.target.value)
-                          setCustomAmount("")
+                          setSelectedAmount(e.target.value);
+                          setCustomAmount("");
                         }}
                         className="sr-only"
                       />
                       <div
-                        className={`p-3 text-center border-2 rounded-lg transition-all duration-200 ${
+                        className={`p-6 lg:p-8 text-center border-2 rounded-2xl transition-all duration-200 text-lg lg:text-xl xl:text-2xl font-semibold ${
                           selectedAmount === amount.value
-                            ? "border-blue-500 bg-blue-50 text-blue-700 shadow-md"
-                            : "border-gray-300 hover:border-gray-400 hover:shadow-sm"
+                            ? "border-blue-500 bg-blue-50 text-blue-700 shadow-lg transform scale-105"
+                            : "border-gray-300 hover:border-gray-400 hover:shadow-md hover:scale-102"
                         }`}
                       >
                         {amount.label}
@@ -254,42 +306,44 @@ export default function DonationForm() {
                   ))}
                 </div>
 
-                <div className="flex items-center space-x-2">
-                  <Label htmlFor="customAmount" className="text-sm font-medium whitespace-nowrap">
-                    Other: R
+                <div className="flex flex-col lg:flex-row items-center justify-center space-y-4 lg:space-y-0 lg:space-x-6 max-w-2xl mx-auto">
+                  <Label htmlFor="customAmount" className="text-lg lg:text-xl xl:text-2xl font-medium whitespace-nowrap">
+                    Other Amount: R
                   </Label>
                   <Input
                     id="customAmount"
                     type="number"
                     value={customAmount}
                     onChange={(e) => {
-                      setCustomAmount(e.target.value)
-                      setSelectedAmount("")
+                      setCustomAmount(e.target.value);
+                      setSelectedAmount("");
                     }}
-                    placeholder="Enter amount"
-                    className="max-w-xs"
+                    placeholder="Enter custom amount"
+                    className="h-14 lg:h-16 text-lg lg:text-xl w-full lg:w-80"
                   />
                 </div>
               </div>
 
               {/* Payment Method */}
-              <div className="bg-white/70 p-6 border rounded-lg shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Payment Method</h3>
+              <div className="bg-white/90 p-8 lg:p-12 xl:p-16 border rounded-2xl shadow-lg">
+                <h3 className="text-2xl lg:text-3xl xl:text-4xl font-semibold text-gray-800 mb-8 text-center">Payment Method</h3>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
                   {paymentMethods.map((method) => (
                     <label
                       key={method.value}
-                      className="flex items-center space-x-3 cursor-pointer p-3 border rounded-lg hover:bg-gray-50 transition-colors"
+                      className="flex items-center justify-center lg:justify-start space-x-4 cursor-pointer p-6 lg:p-8 border-2 rounded-2xl hover:bg-gray-50 transition-all duration-200 hover:shadow-lg"
                     >
-                      <Checkbox
+                      <input
+                        type="radio"
+                        name="payment"
+                        value={method.value}
                         checked={selectedPayment === method.value}
-                        onCheckedChange={(checked) => {
-                          setSelectedPayment(checked ? method.value : "")
-                        }}
+                        onChange={(e) => setSelectedPayment(e.target.value)}
+                        className="w-6 h-6 text-blue-600"
                       />
-                      <span className="text-sm font-medium flex items-center">
-                        {method.value === "PayFast" && <CreditCard className="w-4 h-4 mr-2 text-green-600" />}
+                      <span className="text-lg lg:text-xl xl:text-2xl font-medium flex items-center">
+                        <method.icon className="w-6 h-6 lg:w-8 lg:h-8 mr-4 text-blue-600" />
                         {method.label}
                       </span>
                     </label>
@@ -297,9 +351,9 @@ export default function DonationForm() {
                 </div>
 
                 {selectedPayment === "PayFast" && (
-                  <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-                    <p className="text-sm text-green-700">
-                      <CreditCard className="inline-block w-4 h-4 mr-1" />
+                  <div className="mt-8 p-6 lg:p-8 bg-green-50 border border-green-200 rounded-2xl">
+                    <p className="text-lg lg:text-xl text-green-700 text-center">
+                      <FaCreditCard className="inline-block w-6 h-6 mr-3" />
                       PayFast allows secure online payments via credit card, debit card, or EFT. You will be redirected
                       to PayFast's secure payment page.
                     </p>
@@ -307,59 +361,94 @@ export default function DonationForm() {
                 )}
               </div>
 
-              {/* Banking Details & QR Code */}
-              <div className="bg-gradient-to-r from-gray-50/60 to-blue-50/60 p-6 rounded-lg border border-gray-200/30">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Banking Details & Contact</h3>
+              {/* Banking Details & Contact */}
+              <div className="bg-gradient-to-br from-blue-50/95 via-white/90 to-cyan-50/95 p-8 lg:p-12 xl:p-16 rounded-3xl border-2 border-blue-200/40 shadow-xl">
+                <h3 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-800 mb-10 text-center flex items-center justify-center">
+                  <FaUniversity className="w-6 h-6 lg:w-8 lg:h-8 xl:w-10 xl:h-10 text-blue-600 mr-4" />
+                  Banking Details & Contact
+                </h3>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <div className="flex justify-between py-1">
-                      <span className="font-medium text-gray-600">Entity Name:</span>
-                      <span className="text-gray-800">YOUNG EAGLES HOME CARE CENTRE NPO</span>
-                    </div>
-                    <div className="flex justify-between py-1">
-                      <span className="font-medium text-gray-600">Registration Number/ID:</span>
-                      <span className="text-gray-800">104-850-NPO</span>
-                    </div>
-                    <div className="flex justify-between py-1">
-                      <span className="font-medium text-gray-600">Account Number:</span>
-                      <span className="text-gray-800 font-mono">62777403181</span>
-                    </div>
-                    <div className="flex justify-between py-1">
-                      <span className="font-medium text-gray-600">Account Type:</span>
-                      <span className="text-gray-800">Gold Business Account</span>
+                <div className="grid grid-cols-1 xl:grid-cols-5 gap-8 lg:gap-12">
+                  {/* Banking Details */}
+                  <div className="xl:col-span-3 space-y-6">
+                    <div className="bg-white/80 p-6 lg:p-8 rounded-2xl shadow-lg border border-blue-100">
+                      <h4 className="text-xl lg:text-2xl font-bold text-blue-800 mb-6 text-center lg:text-left">Banking Information</h4>
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 lg:p-5 rounded-xl border border-blue-200/50">
+                          <span className="font-semibold text-blue-700 text-sm lg:text-base block mb-2 uppercase tracking-wide">Entity Name</span>
+                          <span className="text-gray-800 text-base lg:text-lg font-bold break-words">YOUNG EAGLES HOME CARE CENTRE NPO</span>
+                        </div>
+                        <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 lg:p-5 rounded-xl border border-blue-200/50">
+                          <span className="font-semibold text-blue-700 text-sm lg:text-base block mb-2 uppercase tracking-wide">Registration ID</span>
+                          <span className="text-gray-800 text-base lg:text-lg font-bold">104-850-NPO</span>
+                        </div>
+                        <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-4 lg:p-5 rounded-xl border border-green-200/50">
+                          <span className="font-semibold text-green-700 text-sm lg:text-base block mb-2 uppercase tracking-wide">Account Number</span>
+                          <span className="text-gray-800 font-mono text-lg lg:text-xl font-bold tracking-wider">62777403181</span>
+                        </div>
+                        <div className="bg-gradient-to-r from-yellow-50 to-amber-50 p-4 lg:p-5 rounded-xl border border-yellow-200/50">
+                          <span className="font-semibold text-amber-700 text-sm lg:text-base block mb-2 uppercase tracking-wide">Account Type</span>
+                          <span className="text-gray-800 text-base lg:text-lg font-bold">Gold Business Account</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="flex flex-col items-center space-y-4">
-                    <div className="bg-white p-4 rounded-lg shadow-md border-2 border-green-200">
-                      <div className="w-[120px] h-[120px] bg-gray-200 rounded-lg flex items-center justify-center">
-                        <span className="text-xs text-gray-500 text-center">WhatsApp QR Code<br />081 523 6000</span>
+                  {/* Contact Information */}
+                  <div className="xl:col-span-2 flex flex-col justify-center space-y-6">
+                    <div className="bg-white/80 p-6 lg:p-8 rounded-2xl shadow-lg border border-green-100">
+                      <h4 className="text-xl lg:text-2xl font-bold text-green-800 mb-6 text-center">Get In Touch</h4>
+                      <div className="space-y-4">
+                        <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-4 lg:px-8 lg:py-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                          <div className="flex items-center justify-center space-x-4">
+                            <FaPhone className="w-6 h-6 lg:w-8 lg:h-8" />
+                            <div className="text-center">
+                              <div className="text-sm lg:text-base font-medium opacity-90">WhatsApp</div>
+                              <div className="text-lg lg:text-xl xl:text-2xl font-bold">081 523 6000</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-center p-4 bg-blue-50/50 rounded-xl">
+                          <p className="text-sm lg:text-base text-gray-600 font-medium">
+                            For any questions about your donation or banking details
+                          </p>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-2 text-green-600 bg-white px-4 py-2 rounded-full shadow-sm">
-                      <Phone className="w-4 h-4" />
-                      <span className="text-sm font-medium">WhatsApp: 081 523 6000</span>
-                    </div>
+                  </div>
+                </div>
+
+                {/* Security Notice */}
+                <div className="mt-8 bg-gradient-to-r from-amber-50/80 to-yellow-50/80 p-4 lg:p-6 rounded-xl border border-amber-200/60">
+                  <div className="flex items-center justify-center space-x-3">
+                    <div className="w-3 h-3 bg-amber-500 rounded-full animate-pulse"></div>
+                    <p className="text-center text-sm lg:text-base text-amber-800 font-medium">
+                      <strong>Secure Donation:</strong> All banking details are verified and secure. Your contribution directly supports our educational mission.
+                    </p>
                   </div>
                 </div>
               </div>
 
               {/* Submit Button */}
-              <div className="text-center">
+              <div className="text-center text-white pt-8">
                 <Button
                   type="submit"
-                  size="lg"
-                  className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
+                  disabled={!formData.fullName || !formData.contactNumber || !formData.email || !finalAmount || !selectedPayment || isSubmitting}
+                  className="w-full lg:w-auto bg-blue-700 cursor-pointer hover:bg-blue-800 px-12 lg:px-16 xl:px-20 py-6 lg:py-8 text-xl lg:text-2xl xl:text-3xl font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 disabled:opacity-50 transform hover:scale-105 rounded-2xl"
                 >
-                  {selectedPayment === "PayFast" ? (
+                  {isSubmitting ? (
+                    <div className="flex items-center gap-4">
+                      <div className="w-6 h-6 lg:w-8 lg:h-8 border-3 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Processing...
+                    </div>
+                  ) : selectedPayment === "PayFast" ? (
                     <>
-                      <CreditCard className="w-5 h-5 mr-2" />
+                      <FaCreditCard className="w-6 h-6 lg:w-8 lg:h-8 xl:w-10 xl:h-10 mr-4" />
                       Pay Now with PayFast
                     </>
                   ) : (
                     <>
-                      <Heart className="w-5 h-5 mr-2" />
+                      <FaHeart className="text-red-900 w-6 h-6 lg:w-8 lg:h-8 xl:w-10 xl:h-10 mr-4" />
                       Submit Donation
                     </>
                   )}
@@ -368,16 +457,21 @@ export default function DonationForm() {
             </form>
 
             {/* Thank You Message */}
-            <div className="bg-gradient-to-r from-orange-50/60 to-red-50/60 p-6 rounded-lg text-center border border-orange-200/30">
-              <p className="text-gray-700">
-                <Heart className="inline-block w-4 h-4 text-red-500 mr-1" />
-                <span className="font-semibold text-orange-600">Thank you for sowing into a child's future.</span> Your
+            <div className="bg-gradient-to-r from-orange-50/90 to-red-50/90 p-8 lg:p-12 xl:p-16 rounded-2xl text-center border border-orange-200/60 max-w-5xl mx-auto">
+              <p className="text-gray-700 text-xl lg:text-2xl xl:text-3xl leading-relaxed">
+                <FaHeart className="inline-block w-6 h-6 lg:w-8 lg:h-8 text-red-500 mr-4" />
+                <span className="font-bold text-orange-600">Thank you for sowing into a child's future.</span> Your
                 contribution brings us closer to a future-ready generation.
               </p>
+            </div>
+
+            {/* Ad Banner */}
+            <div className="mt-16 max-w-6xl mx-auto">
+              <EducationalBanner />
             </div>
           </CardContent>
         </Card>
       </div>
     </div>
-  )
+  );
 }

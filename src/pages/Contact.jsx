@@ -15,7 +15,6 @@ import {
   FaUsers,
   FaHeart
 } from 'react-icons/fa';
-import SEOManager from '../components/SEO/SEOManager';
 import { EducationalBanner, SidebarAd } from '../components/Ads/AdManager_Safe';
 
 const Contact = () => {
@@ -102,13 +101,6 @@ const Contact = () => {
 
   return (
     <>
-      <SEOManager 
-        title="Contact Young Eagles Education Platform - Get in Touch Today"
-        description="Contact Young Eagles Education Platform for enrollment, tours, and questions about our premium daycare and early learning programs. Call us at (555) 123-4567."
-        keywords="contact young eagles, daycare enrollment, schedule tour, early learning contact, STEM education inquiry"
-        url="https://youngeagles.edu/contact"
-      />
-      
       <div className="min-h-screen pt-16">
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 text-white py-16">
@@ -397,8 +389,8 @@ const Contact = () => {
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-2xl font-bold text-red-800 mb-4">Emergency Contact</h2>
             <p className="text-red-700 mb-4">For urgent matters outside business hours:</p>
-            <a href="tel:+15551234567" className="text-xl font-bold text-red-800 hover:text-red-900">
-              Emergency Line: +1 (555) 123-4567
+            <a href="tel:+27674770975" className="text-xl font-bold text-red-800 hover:text-red-900">
+              Emergency Line: +27 (674) 770-975
             </a>
           </div>
         </section>

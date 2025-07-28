@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RiCloseCircleFill } from "react-icons/ri";
-// Using yehc_logo.png for the Young Eagles Home Care Centre branding
-import useRedirect from "../hooks/useRedirect";
 import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
@@ -12,7 +10,6 @@ const links = [
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
   { to: "/donate", label: "Donate", highlight: true },
-  { to: "https://youngeagles.org.za", label: "Dashboard", external: true },
 ];
 
 const styles = {
@@ -22,14 +19,8 @@ const styles = {
 
 function Navbar() {
   const [IsMenuOpen, setIsMenuOpen] = useState(false);
-  const redirect = useRedirect();
 
   const toggleMenu = () => setIsMenuOpen(!IsMenuOpen);
-
-  const handleRedirect = (path) => {
-    if (IsMenuOpen) toggleMenu();
-    redirect(path, 2000);
-  };
 
   return (
     <nav className="fixed w-full top-0 z-50 bg-white shadow-md backdrop-blur-md bg-opacity-80">
@@ -41,35 +32,18 @@ function Navbar() {
           <span className="sm:hidden">YE</span>
         </Link>
 
-        {/* Desktop Menu */}
+                {/* Desktop Menu */}
         <ul className="hidden md:flex items-center gap-4 ">
-          {links.map((link, i) =>
-            link.external ? (
-              <li key={i}>
-                <a
-                  href={link.to}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={link.highlight ? styles.highlight : styles.link}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ) : link.isRedirect ? (
-              <li key={i} onClick={() => handleRedirect(link.to)} className="cursor-pointer">
-                <span className={styles.link}>{link.label}</span>
-              </li>
-            ) : (
-              <li key={i}>
-                <Link
-                  to={link.to}
-                  className={link.highlight ? styles.highlight : styles.link}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            )
-          )}
+          {links.map((link, i) => (
+            <li key={i}>
+              <Link
+                to={link.to}
+                className={link.highlight ? styles.highlight : styles.link}
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
         </ul>
 
         {/* Mobile Toggle */}
@@ -116,19 +90,11 @@ function Navbar() {
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.1 * (i + 1) }}
                     className="cursor-pointer w-full"
-                    onClick={() =>
-                      link.isRedirect
-                        ? handleRedirect(link.to)
-                        : toggleMenu()
-                    }
+                    onClick={toggleMenu}
                   >
-                    {link.isRedirect ? (
-                      <span className={styles.link}>{link.label}</span>
-                    ) : (
-                      <Link to={link.to} className={link.highlight ? styles.highlight : styles.link}>
-                        {link.label}
-                      </Link>
-                    )}
+                    <Link to={link.to} className={link.highlight ? styles.highlight : styles.link}>
+                      {link.label}
+                    </Link>
                   </motion.li>
                 ))}
               </ul>

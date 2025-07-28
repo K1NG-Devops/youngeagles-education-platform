@@ -15,7 +15,6 @@ const Register2026Modal = ({ isOpen, onClose }) => {
     childAge: '',
     childGender: '',
     preferredProgram: '',
-    interestedInPWA: false,
     additionalNotes: ''
   });
 
@@ -54,17 +53,6 @@ const Register2026Modal = ({ isOpen, onClose }) => {
           description: 'Welcome to Young Eagles 2026 intake!'
         });
         setCurrentStep(4); // Success step
-        
-        // If interested in PWA, also sign them up for early access
-        if (formData.interestedInPWA) {
-          await DatabaseService.signupPWAEarlyAccess({
-            name: formData.parentName,
-            email: formData.parentEmail,
-            phone: formData.parentPhone,
-            deviceType: navigator.userAgent.includes('Mobile') ? 'mobile' : 'desktop',
-            notificationPreferences: ['enrollment_updates', 'pwa_updates']
-          });
-        }
       } else {
         throw new Error(result.message || 'Registration failed');
       }
@@ -88,7 +76,6 @@ const Register2026Modal = ({ isOpen, onClose }) => {
       childAge: '',
       childGender: '',
       preferredProgram: '',
-      interestedInPWA: false,
       additionalNotes: ''
     });
   };
@@ -317,28 +304,6 @@ const Register2026Modal = ({ isOpen, onClose }) => {
                       </div>
                     </div>
                     
-                    <div className="bg-blue-50 p-4 rounded-lg">
-                      <label className="flex items-start gap-3">
-                        <input
-                          type="checkbox"
-                          name="interestedInPWA"
-                          checked={formData.interestedInPWA}
-                          onChange={handleInputChange}
-                          className="mt-1"
-                        />
-                        <div>
-                          <span className="font-medium flex items-center gap-2">
-                            <FaMobile className="text-blue-600" />
-                            Get early access to our PWA app
-                          </span>
-                          <p className="text-sm text-gray-600 mt-1">
-                            Be among the first to access our mobile app with exclusive features, 
-                            offline access, and push notifications.
-                          </p>
-                        </div>
-                      </label>
-                    </div>
-                    
                     <div>
                       <label className="block text-sm font-medium mb-2">Additional Notes (Optional)</label>
                       <textarea
@@ -368,13 +333,6 @@ const Register2026Modal = ({ isOpen, onClose }) => {
                     <p className="text-gray-600 mb-6">
                       Thank you for registering for our 2026 intake. We'll contact you soon with more details.
                     </p>
-                    {formData.interestedInPWA && (
-                      <div className="bg-blue-50 p-4 rounded-lg mb-4">
-                        <p className="text-blue-800 font-medium">
-                          🎉 You're also signed up for PWA early access!
-                        </p>
-                      </div>
-                    )}
                     <button
                       onClick={handleClose}
                       className="bg-purple-600 text-white px-8 py-3 rounded-lg hover:bg-purple-700 transition-colors"

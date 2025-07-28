@@ -55,7 +55,6 @@ class DatabaseService {
         childAge: data.childAge,
         childGender: data.childGender,
         preferredProgram: data.preferredProgram,
-        interestedInPWA: data.interestedInPWA || false,
         registrationDate: new Date().toISOString(),
         status: 'pending',
         source: 'website',
@@ -85,24 +84,6 @@ class DatabaseService {
       return { success: true, data: response.data };
     } catch (error) {
       return { success: false, error: this.handleError(error) };
-    }
-  }
-
-  // PWA early access signup
-  async signupPWAEarlyAccess(data) {
-    try {
-      const response = await this.api.post('/api/pwa-early-access', {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        deviceType: data.deviceType || 'unknown',
-        notificationPreferences: data.notificationPreferences || [],
-        signupDate: new Date().toISOString(),
-        status: 'active'
-      });
-      return response.data;
-    } catch (error) {
-      throw this.handleError(error);
     }
   }
 

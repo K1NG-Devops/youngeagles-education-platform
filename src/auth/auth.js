@@ -1,5 +1,53 @@
 import axios from "axios";
+import React, { createContext, useContext, useState } from 'react';
 import { API_BASE_URL } from '../config/api';
+
+// Create Auth Context
+const AuthContext = createContext();
+
+// AuthProvider component
+export const AuthProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+  const [role, setRole] = useState(null);
+
+  const login = (authData) => {
+    setIsAuthenticated(true);
+    setUser(authData.user);
+    setRole(authData.role);
+  };
+
+  const logout = () => {
+    setIsAuthenticated(false);
+    setUser(null);
+    setRole(null);
+    localStorage.clear();
+  };
+
+  const value = {
+    isAuthenticated,
+    user,
+    role,
+    login,
+    logout,
+    isTeacher: role === 'teacher',
+  };
+
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+// Custom hook to use auth context
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
 
 export async function teacherLogin(email, password) {
   try {

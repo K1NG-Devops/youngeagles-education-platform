@@ -4,17 +4,14 @@ import { motion } from 'framer-motion';
 import { FaStar, FaUsers, FaGraduationCap, FaHeart, FaRocket, FaShieldAlt, FaMobile, FaBolt, FaWifi, FaBell, FaDownload } from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import TracksuitPromo from '../components/Parents/TracksuitPromo';
 import CountUp from 'react-countup';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import { Autoplay } from 'swiper/modules';
-import SEOManager from '../components/SEO/SEOManager';
 import AdManager from '../components/AdManager';
 import MarketingCTA from '../components/MarketingCTA';
 import DatabaseService from '../services/DatabaseService';
-import PWAEarlyAccessButton from '../components/PWAEarlyAccessButton';
 import ErrorBoundary from '../components/ErrorBoundary';
 import { toast } from 'sonner';
 
@@ -65,13 +62,6 @@ const Home = () => {
 
   return (
     <>
-      <SEOManager 
-        title="Young Eagles Education Platform - Premium Daycare & Early Learning"
-        description="Award-winning daycare and early learning center featuring Society 5.0 integration, STEM programs, and comprehensive child development for ages 6 months to 6 years."
-        keywords="daycare, early learning, child development, STEM education, Society 5.0, preschool, infant care, toddler programs, young eagles"
-        url="https://youngeagles.edu"
-      />
-      
       <div className="mt-16 bg-gradient-to-br from-pink-50 via-blue-50 to-purple-50 min-h-screen w-full overflow-x-hidden">
         {/* Hero Section */}
         <section className="relative py-20 px-4">
@@ -467,15 +457,6 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Existing sections from original file */}
-        <section className="px-4 py-8">
-          <div className="container mx-auto">
-            <ErrorBoundary fallbackMessage="Tracksuit promotion temporarily unavailable">
-              <TracksuitPromo />
-            </ErrorBoundary>
-          </div>
-        </section>
-
         {/* Final CTA */}
         <section className="py-16 px-4">
           <div className="container mx-auto">
@@ -497,90 +478,6 @@ const Home = () => {
                 >
                   📞 Schedule a Tour
                 </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Marketing CTA Section */}
-        <ErrorBoundary fallbackMessage="Marketing section temporarily unavailable">
-          <MarketingCTA />
-        </ErrorBoundary>
-
-        {/* PWA Early Access Section */}
-        <section className="py-16 px-4 bg-gradient-to-br from-indigo-50 to-purple-50">
-          <div className="container mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div data-aos="fade-right">
-                <div className="flex items-center gap-3 mb-4">
-                  <FaMobile className="text-3xl text-blue-600" />
-                  <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
-                    Coming Soon
-                  </span>
-                </div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                  Young Eagles PWA App
-                </h2>
-                <p className="text-lg text-gray-600 mb-6">
-                  Get ready for the ultimate mobile experience! Our Progressive Web App will give you 
-                  native app features right in your browser - no app store required.
-                </p>
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-center">
-                    <FaBolt className="text-yellow-600 text-xl mr-3" />
-                    <span className="text-gray-700">Lightning-fast performance</span>
-                  </div>
-                  <div className="flex items-center">
-                    <FaWifi className="text-blue-600 text-xl mr-3" />
-                    <span className="text-gray-700">Works offline</span>
-                  </div>
-                  <div className="flex items-center">
-                    <FaBell className="text-purple-600 text-xl mr-3" />
-                    <span className="text-gray-700">Push notifications</span>
-                  </div>
-                  <div className="flex items-center">
-                    <FaDownload className="text-green-600 text-xl mr-3" />
-                    <span className="text-gray-700">Install directly from browser</span>
-                  </div>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button
-                    onClick={() => window.open('https://youngeagles.org.za', '_blank')}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 font-semibold"
-                  >
-                    <FaRocket />
-                    Try PWA Now
-                  </button>
-                  <PWAEarlyAccessButton />
-                </div>
-              </div>
-              
-              <div data-aos="fade-left" className="relative">
-                <div className="bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-3xl p-8 text-white relative overflow-hidden">
-                  <div className="absolute inset-0 bg-black/10"></div>
-                  <div className="relative z-10">
-                    <div className="flex justify-center mb-6">
-                      <div className="bg-white/20 p-6 rounded-2xl">
-                        <FaMobile className="text-6xl" />
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-center mb-4">Early Access Features</h3>
-                    <div className="space-y-3 text-center">
-                      <div className="bg-white/10 p-3 rounded-lg">
-                        <span className="font-semibold">📱 Native App Experience</span>
-                      </div>
-                      <div className="bg-white/10 p-3 rounded-lg">
-                        <span className="font-semibold">🔔 Real-time Updates</span>
-                      </div>
-                      <div className="bg-white/10 p-3 rounded-lg">
-                        <span className="font-semibold">👨‍👩‍👧‍👦 Parent Dashboard</span>
-                      </div>
-                      <div className="bg-white/10 p-3 rounded-lg">
-                        <span className="font-semibold">📚 Learning Resources</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
