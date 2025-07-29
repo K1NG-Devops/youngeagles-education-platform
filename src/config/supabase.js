@@ -1,16 +1,12 @@
 // Supabase configuration
 import { createClient } from '@supabase/supabase-js'
 
-// Use secure environment variables (no VITE_ prefix)
-const supabaseUrl = import.meta.env.SUPABASE_URL
-const supabaseAnonKey = import.meta.env.SUPABASE_ANON_KEY
-const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY
+// Use VITE_ prefixed environment variables for browser access
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 // Client instance (for frontend use)
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
-
-// Server instance (for API routes with elevated permissions)
-export const supabaseServer = createClient(supabaseUrl, supabaseServiceKey)
 
 // Donation API functions
 export const donationApi = {

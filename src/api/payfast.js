@@ -4,9 +4,9 @@ import CryptoJS from 'crypto-js';
 // Server-side PayFast configuration
 const getPayFastConfig = () => {
   return {
-    merchant_id: import.meta.env.PAYFAST_MERCHANT_ID,
-    merchant_key: import.meta.env.PAYFAST_MERCHANT_KEY,
-    passphrase: import.meta.env.PAYFAST_PASSPHRASE,
+    merchant_id: import.meta.env.VITE_PAYFAST_MERCHANT_ID,
+    merchant_key: import.meta.env.VITE_PAYFAST_MERCHANT_KEY,
+    passphrase: import.meta.env.VITE_PAYFAST_PASSPHRASE,
   };
 };
 
@@ -57,6 +57,17 @@ export const generatePayFastSignature = (data, passPhrase = "") => {
 // Create PayFast payment data
 export const createPayFastPayment = (donationData) => {
   const config = getPayFastConfig();
+  
+  // Debug: Log configuration to check if environment variables are loaded
+  console.log('🔍 PayFast Config Debug:');
+  console.log('Merchant ID:', config.merchant_id ? '✅ Found' : '❌ Missing');
+  console.log('Merchant Key:', config.merchant_key ? '✅ Found' : '❌ Missing');
+  console.log('Passphrase:', config.passphrase ? '✅ Found' : '❌ Missing');
+  
+  if (!config.merchant_id || !config.merchant_key) {
+    console.error('❌ PayFast credentials missing! Check environment variables.');
+    throw new Error('PayFast credentials not configured. Please check VITE_PAYFAST_MERCHANT_ID and VITE_PAYFAST_MERCHANT_KEY environment variables.');
+  }
   
   const payFastData = {
     merchant_id: config.merchant_id,

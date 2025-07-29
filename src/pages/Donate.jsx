@@ -7,7 +7,7 @@ import { FaHeart, FaPhone, FaCreditCard, FaUniversity, FaPaypal } from "react-ic
 import { EducationalBanner } from "../components/Ads/AdManager_Safe";
 import society5Background from "../assets/society-5.0.png";
 import { donationApi } from "../config/supabase";
-import { createPayFastPayment } from "../api/payfast";
+import { submitPayFastPayment } from "../api/payfastButton";
 import { emailService } from "../services/emailService";
 
 export default function Donate() {
@@ -99,6 +99,8 @@ export default function Donate() {
     }
 
     try {
+      setIsSubmitting(true);
+      
       // First, create the donation record in Supabase
       const donationData = {
         full_name: formData.fullName,
@@ -110,6 +112,7 @@ export default function Donate() {
         status: 'pending'
       };
 
+      console.log('🔄 Creating donation record...', donationData);
       const result = await donationApi.createDonation(donationData);
       
       if (!result.success) {
@@ -117,30 +120,15 @@ export default function Donate() {
       }
 
       const donation = result.data;
+      console.log('✅ Donation record created:', donation);
 
-      // Create PayFast payment data using the secure helper
-      const payFastData = createPayFastPayment(donation);
+      // Use the new PayFast button approach
+      console.log('🚀 Redirecting to PayFast...');
+      submitPayFastPayment(donation);
 
-      // Create form and submit to PayFast
-      const form = document.createElement("form");
-      form.method = "POST";
-      form.action = "https://www.payfast.co.za/eng/process"; // Production PayFast URL
-
-      Object.entries(payFastData).forEach(([key, value]) => {
-        if (value) {
-          const input = document.createElement("input");
-          input.type = "hidden";
-          input.name = key;
-          input.value = value.toString();
-          form.appendChild(input);
-        }
-      });
-
-      document.body.appendChild(form);
-      form.submit();
     } catch (error) {
-      console.error('Error creating PayFast donation:', error);
-      setSubmissionError('Failed to process payment. Please try again.');
+      console.error('❌ PayFast payment error:', error);
+      setSubmissionError(`Payment setup failed: ${error.message}`);
       setIsSubmitting(false);
     }
   };

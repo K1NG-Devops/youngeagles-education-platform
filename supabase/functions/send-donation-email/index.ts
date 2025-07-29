@@ -18,7 +18,20 @@ serve(async (req) => {
   }
 
   try {
+    // Check if required environment variables are present
+    if (!RESEND_API_KEY) {
+      throw new Error('RESEND_API_KEY is not configured');
+    }
+    if (!SUPABASE_URL) {
+      throw new Error('SUPABASE_URL is not configured');
+    }
+    if (!SUPABASE_SERVICE_ROLE_KEY) {
+      throw new Error('SUPABASE_SERVICE_ROLE_KEY is not configured');
+    }
+    
     const { donationId, type } = await req.json()
+    
+    console.log('Processing email request:', { donationId, type });
     
     const supabase = createClient(SUPABASE_URL!, SUPABASE_SERVICE_ROLE_KEY!)
     
@@ -29,7 +42,16 @@ serve(async (req) => {
       .eq('id', donationId)
       .single()
     
-    if (error) throw error
+    if (error) {
+      console.error('Database error:', error);
+      throw error;
+    }
+    
+    if (!donation) {
+      throw new Error(`Donation with ID ${donationId} not found`);
+    }
+    
+    console.log('Found donation:', donation.reference_number);
     
     let emailContent = ''
     let subject = ''
@@ -50,7 +72,7 @@ serve(async (req) => {
         'Authorization': `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: 'onboarding@resend.dev', // Temporary - change to your verified domain later
+        from: 'donations@edudashpro.org.za', // Using your verified domain
         to: [donation.email],
         subject: subject,
         html: emailContent,
@@ -60,8 +82,18 @@ serve(async (req) => {
     const result = await res.json()
     
     if (!res.ok) {
+      console.error('Resend API Response:', result);
+      console.error('Response status:', res.status);
+      
+      // Provide more helpful error messages
+      if (res.status === 403) {
+        console.error('Domain verification issue. Make sure edudashpro.org.za is verified in Resend dashboard.');
+      }
+      
       throw new Error(`Resend API error: ${JSON.stringify(result)}`)
     }
+    
+    console.log('Email sent successfully:', result);
     
     return new Response(
       JSON.stringify({ success: true, result }),

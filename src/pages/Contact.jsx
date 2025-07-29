@@ -370,7 +370,7 @@ const Contact = () => {
               </div>
               <div className="bg-white rounded-lg p-6 shadow-md">
                 <h3 className="font-bold text-gray-900 mb-2">Do you provide meals?</h3>
-                <p className="text-gray-600 text-sm">Yes! We provide nutritious breakfast, lunch, and snacks. Our menu follows USDA guidelines and accommodates dietary restrictions.</p>
+                <p className="text-gray-600 text-sm">Yes! We provide nutritious breakfast, lunch, and snacks. Our menu follows South African Department of Health nutrition guidelines and accommodates dietary restrictions.</p>
               </div>
               <div className="bg-white rounded-lg p-6 shadow-md">
                 <h3 className="font-bold text-gray-900 mb-2">What's your teacher-to-child ratio?</h3>
