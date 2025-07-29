@@ -7,7 +7,7 @@ import { FaHeart, FaPhone, FaCreditCard, FaUniversity, FaPaypal } from "react-ic
 import { EducationalBanner } from "../components/Ads/AdManager_Safe";
 import society5Background from "../assets/society-5.0.png";
 import { donationApi } from "../config/supabase";
-import { submitPayFastPayment } from "../api/payfastButton";
+import { submitPayFastDonation } from "../api/payfastGenerated";
 import { emailService } from "../services/emailService";
 
 export default function Donate() {
@@ -122,9 +122,9 @@ export default function Donate() {
       const donation = result.data;
       console.log('✅ Donation record created:', donation);
 
-      // Use the new PayFast button approach
-      console.log('🚀 Redirecting to PayFast...');
-      submitPayFastPayment(donation);
+      // Use the PayFast generated form approach
+      console.log('🚀 Redirecting to PayFast using generated form...');
+      submitPayFastDonation(donation);
 
     } catch (error) {
       console.error('❌ PayFast payment error:', error);
