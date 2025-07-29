@@ -8,9 +8,9 @@ export const submitPayFastDonation = (donationData) => {
   const payFastFormData = {
     cmd: "_paynow",
     receiver: "30921435", // Your PayFast receiver ID from the generated form
-    return_url: "https://youngeagles-education-platform.vercel.app/donation-success",
-    cancel_url: "https://youngeagles-education-platform.vercel.app/donation-cancelled", 
-    notify_url: "https://youngeagles-education-platform.vercel.app/api/payfast-webhook",
+    return_url: "https://www.youngeagles.org.za/donation-success",
+    cancel_url: "https://www.youngeagles.org.za/donation-cancelled", 
+    notify_url: "https://www.youngeagles.org.za/api/payfast-webhook",
     amount: amount,
     custom_quantity: "1",
     item_name: "Young Eagles Digital Future Donation",
