@@ -20,9 +20,9 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="programs" element={<Programs />} />
           <Route path="donate" element={<Donate />} />
+          <Route path="donation-success" element={<DonationSuccess />} />
+          <Route path="donation-cancelled" element={<DonationCancelled />} />
         </Route>
-        <Route path="donation-success" element={<DonationSuccess />} />
-        <Route path="donation-cancelled" element={<DonationCancelled />} />
       </Routes>
     </Router>
   )
